@@ -1,18 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Bollette Manager</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
-
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
-
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+	<ion-list>
+		<!-- <ion-list-header>Bollette</ion-list-header> -->
+		<!-- <button ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
+			{{ bolletta.utenza }} {{ bolletta.scadenza }}
+		</button>  -->
+		<ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
+			<ion-icon name="{{ bolletta.icona }}" item-start></ion-icon>
+			<h2>{{ bolletta.utenza }}</h2>
+			<h3>€ {{ bolletta.importo }}</h3>
+			<p>{{ bolletta.scadenza }}</p>
+		</ion-item>
+	</ion-list>
+	<ion-fab right bottom (click)="nuovaBolletta()">
+		<button ion-fab><ion-icon name="add"></ion-icon></button>
+	</ion-fab>
 </ion-content>

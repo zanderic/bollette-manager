@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Nuova Bolletta</ion-title>
+		<ion-buttons end>
+			<button (click)="dismiss()" ion-button icon-only class="close">
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<ion-item>
+			<ion-label fixed>Utenza</ion-label>
+			<ion-select okText="Conferma" cancelText="Cancella" [(ngModel)]="utenza">
+				<ion-option>Luce</ion-option>
+				<ion-option>Acqua</ion-option>
+				<ion-option>Gas</ion-option>
+				<ion-option>Internet</ion-option>
+				<ion-option>Rifiuti</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed>Importo</ion-label>
+			<ion-input type="number" [(ngModel)]="importo"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed>Scadenza</ion-label>
+			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="scadenza"></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed>Pagata</ion-label>
+			<ion-checkbox [(ngModel)]="pagata"></ion-checkbox>
+		</ion-item>
+		<ion-item *ngIf="pagata">
+			<ion-label fixed>Data Pagamento</ion-label>
+			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataPagamento"></ion-datetime>
+		</ion-item>
+	</ion-list>
+	<button ion-button primary full (click)="addBolletta()">Aggiungi</button>
+</ion-content>

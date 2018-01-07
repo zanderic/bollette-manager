@@ -1,0 +1,16 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Bolletta</ion-title>
+		<ion-buttons end>
+			<button (click)="dismiss()" ion-button icon-only class="close">
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<h2>{{ bolletta.utenza }}</h2>
+	<h3>Scadenza: {{ bolletta.scadenza }}</h3>
+	<h3>Importo: {{ bolletta.importo }}</h3>
+</ion-content>

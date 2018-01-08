@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Bolletta } from '../model/bolletta.model';
+import { HomePage } from '../pages/home/home';
 
 @Injectable() // Mandatory for a Service that uses another Service
 export class BolletteService {
@@ -9,7 +10,7 @@ export class BolletteService {
     constructor(private storage: Storage) {}
     
     updateBollette(bolletta: Bolletta) {
-        console.log(bolletta);
+		console.log(bolletta);
         this.bollette.push(bolletta);
         this.storage.set("bollette", this.bollette);
     }

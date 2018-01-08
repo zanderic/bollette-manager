@@ -10,9 +10,11 @@ import { BollettaPage } from '../bolletta/bolletta';
 	templateUrl: 'home.html'
 })
 export class HomePage {
-	public bollette: Bolletta[] = [];
+	bollettaPage: any;
+	bollette: Bolletta[] = [];
 
 	constructor(private navCtrl: NavController, private bolletteService: BolletteService, private modalCtrl: ModalController) {
+		this.bollettaPage = BollettaPage;
 		this.bolletteService.getBollette().then(
 			(bollette) => {
 				this.bollette = bollette
@@ -21,9 +23,21 @@ export class HomePage {
 	}
 
 	showBolletta(bolletta) {
-		console.log(bolletta);
-		this.modalCtrl.create(BollettaPage, bolletta).present();
-	} 
+		this.navCtrl.push(BollettaPage, bolletta);
+	}
+
+	aggiorna(refresher) {
+		this.bolletteService.getBollette()
+			.then(
+				(bollette) => {
+					this.bollette = bollette,
+					setTimeout(() => {
+						refresher.complete()
+					// 	this.updatedCorsiToast();
+					}, 500)
+				}
+			);
+	}
 
 	nuovaBolletta() {
 		this.modalCtrl.create(NuovaBollettaPage, this.bollette).present();

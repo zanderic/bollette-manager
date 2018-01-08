@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
+import { HomePage } from '../home/home';
 
 @Component({
 	selector: 'page-nuova-bolletta',
@@ -24,13 +25,32 @@ export class NuovaBollettaPage {
 	}
 
 	addBolletta() {
-		// console.log(this.getCurrency(this.importo));
+		let icona: string;
+		switch (this.utenza) {
+			case "Luce":
+				icona = "bulb";
+				break;
+			case "Acqua":
+				icona = "water";
+				break;
+			case "Gas":
+				icona = "flame";
+				break;
+			case "Internet":
+				icona = "wifi";
+				break;
+			case "Rifiuti":
+				icona = "trash";
+				break;
+		}
+
 		this.nuovaBolletta = {
-			utenza: this.utenza,
+			utenza: this.utenza.trim(),
 			importo: this.importo,
 			scadenza: this.scadenza,
 			pagata: this.pagata,
-			dataPagamento: this.dataPagamento
+			dataPagamento: this.dataPagamento,
+			icona: icona
 		};
 		this.bolletteService.updateBollette(this.nuovaBolletta);
 		this.dismiss();

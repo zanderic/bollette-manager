@@ -8,16 +8,21 @@
 </ion-header>
 
 <ion-content padding>
+	<ion-refresher (ionRefresh)="aggiorna($event)">
+		<ion-refresher-content pullingText="Trascina per aggiornare" refreshingText="Solo un secondo..."></ion-refresher-content>
+	</ion-refresher>
 	<ion-list>
 		<!-- <ion-list-header>Bollette</ion-list-header> -->
 		<!-- <button ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
 			{{ bolletta.utenza }} {{ bolletta.scadenza }}
 		</button>  -->
 		<ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
-			<ion-icon name="{{ bolletta.icona }}" item-start></ion-icon>
+			<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
+			<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="secondary" item-start large></ion-icon>
+			<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
+			<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="secondary"></ion-icon>
 			<h2>{{ bolletta.utenza }}</h2>
-			<h3>€ {{ bolletta.importo }}</h3>
-			<p>{{ bolletta.scadenza }}</p>
+			<p>Scadenza {{ bolletta.scadenza }}</p>
 		</ion-item>
 	</ion-list>
 	<ion-fab right bottom (click)="nuovaBolletta()">

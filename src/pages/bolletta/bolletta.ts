@@ -8,13 +8,11 @@ import { Bolletta } from '../../model/bolletta.model';
 	templateUrl: 'bolletta.html',
 })
 export class BollettaPage {
-	private bolletta: Bolletta;
+	public bolletta: Bolletta;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
 		this.bolletta = this.navParams.data;
+
 	}
 
-	dismiss() {
-		this.viewCtrl.dismiss();
-	}
 }

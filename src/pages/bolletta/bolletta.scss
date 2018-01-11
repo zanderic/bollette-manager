@@ -1,7 +1,16 @@
 page-bolletta {
-    .pay-text {
-        color: white;
+    .utenza {
+        font-size: 3vw !important;
+        text-align: center;
+    }
+
+    .pay-date {
         text-align: right;
     }
 
+    .pay-text {
+        color: white;
+        font-weight: bold !important;
+        text-align: right;
+    }
 }

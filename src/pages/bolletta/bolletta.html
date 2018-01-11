@@ -8,28 +8,31 @@
 	<ion-card>
 		<ion-list>
 			<ion-item>
-				<ion-icon name="{{ bolletta.icona }}" item-start></ion-icon>
-				<h2>{{ bolletta.utenza }}</h2>
+				<ion-icon name="{{ bolletta.icona }}" item-start large></ion-icon>
+				<h1 class="utenza">{{ bolletta.utenza.toUpperCase() }}</h1>
 			</ion-item>
 			<ion-item>
 				<ion-icon name="logo-euro" item-start></ion-icon>
-				<h3>Importo: {{ bolletta.importo }}</h3>
+				<h2>{{ bolletta.importo }}</h2>
 			</ion-item>
 			<ion-item>
 				<ion-icon name="calendar" item-start></ion-icon>
-				<h3>Scadenza: {{ bolletta.scadenza }}</h3>
+				<h2>{{ bolletta.scadenza }}</h2>
 			</ion-item>
-			<ion-item *ngIf="bolletta.pagata" color="light">
+			<ion-item *ngIf="bolletta.pagata" color="lightPrimary">
 				<ion-icon name="checkmark" item-start></ion-icon>
-				<h2>{{ bolletta.dataPagamento }}</h2>
+				<h2 class="pay-date">{{ bolletta.dataPagamento }}</h2>
 			</ion-item>
-			<ion-item *ngIf="bolletta.pagata" color="secondary">
+			<ion-item *ngIf="bolletta.pagata" color="primary">
 				<ion-icon name="checkmark-circle-outline" item-start></ion-icon>
-				<h2 class="pay-text" color="secondary">PAGATA</h2>
+				<h2 class="pay-text" color="light">PAGATA</h2>
 			</ion-item>
 		</ion-list>
 	</ion-card>
-	<ion-fab center bottom *ngIf="!bolletta.pagata">
-		<button ion-fab color="secondary"><ion-icon name="checkmark"></ion-icon></button>
+	<ion-fab center bottom *ngIf="!bolletta.pagata" (click)="payBolletta()">
+		<button ion-fab color="primary"><ion-icon name="checkmark"></ion-icon></button>
+	</ion-fab>
+	<ion-fab center bottom *ngIf="bolletta.pagata" (click)="deleteBolletta()">
+		<button ion-fab color="danger"><ion-icon name="close"></ion-icon></button>
 	</ion-fab>
 </ion-content>

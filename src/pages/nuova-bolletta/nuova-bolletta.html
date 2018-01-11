@@ -11,9 +11,9 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item>
+		<ion-item item-end>
 			<ion-label fixed>Utenza</ion-label>
-			<ion-select okText="Conferma" cancelText="Cancella" [(ngModel)]="utenza">
+			<ion-select cancelText="Cancella" interface="action-sheet" [(ngModel)]="utenza">
 				<ion-option>Luce</ion-option>
 				<ion-option>Acqua</ion-option>
 				<ion-option>Gas</ion-option>
@@ -27,16 +27,16 @@
 		</ion-item>
 		<ion-item>
 			<ion-label fixed>Scadenza</ion-label>
-			<ion-datetime displayFormat="DD/MMMM/YYYY" [(ngModel)]="scadenza"></ion-datetime>
+			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="scadenza" doneText="fatto" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
 		</ion-item>
 		<ion-item>
 			<ion-label fixed>Pagata</ion-label>
-			<ion-checkbox [(ngModel)]="pagata"></ion-checkbox>
+			<ion-checkbox [(ngModel)]="pagata" color="primary"></ion-checkbox>
 		</ion-item>
 		<ion-item *ngIf="pagata">
-			<ion-label fixed>Data Pagamento</ion-label>
-			<ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="dataPagamento"></ion-datetime>
+			<ion-label fixed>Data</ion-label>
+			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dataPagamento" doneText="fatto" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
 		</ion-item>
 	</ion-list>
-	<button ion-button primary full (click)="addBolletta()">Aggiungi</button>
+	<button ion-button full (click)="addBolletta()" color="secondary">Aggiungi</button>
 </ion-content>

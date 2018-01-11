@@ -1,3 +1,6 @@
 page-nuova-bolletta {
-
+    .button {
+        color: color($colors, light);
+        font-weight: bold !important;
+    }
 }

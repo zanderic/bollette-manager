@@ -4,28 +4,85 @@
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>Bollette Manager</ion-title>
+		<ion-buttons end>
+			<!-- <button ion-button icon-only (click)="showFilter()">
+				<ion-icon name="funnel"></ion-icon>
+			</button> -->
+			<button ion-button icon-only (click)="uploadBollette()">
+				<ion-icon name="cloud-upload"></ion-icon>
+			</button>
+		</ion-buttons>
 	</ion-navbar>
+	<ion-toolbar *ngIf="filter">
+		<ion-segment (ionChange)="segmentChanged($event)">
+			<ion-segment-button value="tutte">
+				<ion-icon name="apps"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Luce">
+				<ion-icon name="bulb"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Acqua">
+				<ion-icon name="water"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Gas">
+				<ion-icon name="bonfire"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Internet">
+				<ion-icon name="wifi"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Rifiuti">
+				<ion-icon name="trash"></ion-icon>
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 	<ion-refresher (ionRefresh)="aggiorna($event)">
 		<ion-refresher-content pullingText="Trascina per aggiornare" refreshingText="Solo un secondo..."></ion-refresher-content>
 	</ion-refresher>
+	<!-- <div *ngIf="filter" class="filter-space"></div> -->
 	<ion-list>
-		<!-- <ion-list-header>Bollette</ion-list-header> -->
-		<!-- <button ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
-			{{ bolletta.utenza }} {{ bolletta.scadenza }}
-		</button>  -->
-		<ion-item *ngFor="let bolletta of bollette" (click)="showBolletta(bolletta)">
-			<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
-			<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="secondary" item-start large></ion-icon>
-			<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
-			<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="secondary"></ion-icon>
-			<h2>{{ bolletta.utenza }}</h2>
-			<p>Scadenza {{ bolletta.scadenza }}</p>
-		</ion-item>
+		<!-- <ion-list-header>Da Pagare</ion-list-header> -->
+		<ion-item-sliding *ngFor="let bolletta of daPagare">
+			<ion-item (click)="showBolletta(bolletta, bolletta.id)" detail-push>
+				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
+				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
+				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
+				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
+				<h2>{{ bolletta.utenza }}</h2>
+				<p>{{ bolletta.scadenza }}</p>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">
+					<ion-icon name="trash"></ion-icon>
+				</button>
+				<button ion-button icon-only color="primary" (click)="payBolletta(bolletta.id)">
+					<ion-icon name="checkmark-circle-outline"></ion-icon>
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
 	</ion-list>
-	<ion-fab right bottom (click)="nuovaBolletta()">
-		<button ion-fab><ion-icon name="add"></ion-icon></button>
+	<ion-list *ngIf="pagate.length != 0">
+		<!-- <ion-item-divider>Pagate</ion-item-divider> -->
+		<ion-list-header>PAGATE</ion-list-header>
+		<ion-item-sliding *ngFor="let bolletta of pagate">
+			<ion-item (click)="showBolletta(bolletta, bolletta.id)">
+				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
+				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
+				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
+				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
+				<h2>{{ bolletta.utenza }}</h2>
+				<p>{{ bolletta.scadenza }}</p>
+			</ion-item>
+			<ion-item-options>
+				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">
+					<ion-icon name="trash"></ion-icon>
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ion-fab right bottom (click)="nuovaBollettaModal()">
+		<button ion-fab color="secondary"><ion-icon name="add" color="light"></ion-icon></button>
 	</ion-fab>
 </ion-content>

@@ -6,9 +6,9 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { BollettaPage } from '../pages/bolletta/bolletta'; 
 import { NuovaBollettaPage } from '../pages/nuova-bolletta/nuova-bolletta';
+import { StoricoPage } from '../pages/storico/storico';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -20,9 +20,9 @@ import { BolletteService } from '../services/bollette.services';
 	declarations: [
 		MyApp,
 		HomePage,
-		ListPage,
 		BollettaPage,
-		NuovaBollettaPage
+		NuovaBollettaPage,
+		StoricoPage
 	],
 	imports: [
 		BrowserModule,
@@ -34,9 +34,9 @@ import { BolletteService } from '../services/bollette.services';
 	entryComponents: [
 		MyApp,
 		HomePage,
-		ListPage,
 		BollettaPage,
-		NuovaBollettaPage
+		NuovaBollettaPage,
+		StoricoPage
 	],
 	providers: [
 		StatusBar,

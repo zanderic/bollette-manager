@@ -15,11 +15,12 @@ export class HomePage {
 	pagate: Bolletta[] = [];
 	daPagare: Bolletta[] = [];
 	show: string = "tutte";
-	filter: boolean = false;
+	filter: boolean = true;
+	totale: number = 0;
 
 	constructor(private navCtrl: NavController, private bolletteSrvc: BolletteService, private modalCtrl: ModalController,
 		private toastCtrl: ToastController) {
-		this.bollettaPage = BollettaPage;
+			this.bollettaPage = BollettaPage;
 	}
 
 	ionViewWillEnter() {
@@ -40,7 +41,6 @@ export class HomePage {
 
 	segmentChanged(choice)  {
 		this.show = choice.value;
-		console.log(this.show);
 		this.divideBollette();
 	}
 	
@@ -50,13 +50,14 @@ export class HomePage {
 		this.bollette.forEach((item, index) => {
 			item.id = index; // Update index of bollette
 			if (this.show == "tutte") {
-				if (item.pagata) {
+				if (item.pagata && this.pagate.length < 3) {
 					this.pagate.push(item);
-				} else {
+				}
+				if (!item.pagata) {
 					this.daPagare.push(item);
 				}
 			} else {
-				if (item.pagata && item.utenza == this.show) {
+				if (item.pagata && item.utenza == this.show && this.pagate.length < 3) {
 					this.pagate.push(item);
 				}
 				if (!item.pagata && item.utenza == this.show) {
@@ -64,8 +65,18 @@ export class HomePage {
 				}
 			}
 		});
-		console.log(this.pagate);
+		this.calcolaTotale();
+		console.log(this.show);
 		console.log(this.daPagare);
+		console.log(this.pagate);
+	}
+
+	calcolaTotale() {
+		this.totale = 0;
+		this.daPagare.forEach(item => {
+			this.totale = Number(this.totale) + Number(item.importo);
+			console.log(Number(item.importo));
+		});
 	}
 
 	showFilter() {
@@ -82,7 +93,10 @@ export class HomePage {
 	}
 
 	payBolletta(index) {
-		this.bolletteSrvc.payBolletta(index);
+		this.bolletteSrvc.payBolletta(index)
+			.then((promise) => {
+				this.callStorage();
+		});
 	}
 
 	deleteBolletta(index) {

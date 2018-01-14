@@ -14,7 +14,7 @@
 		</ion-buttons>
 	</ion-navbar>
 	<ion-toolbar *ngIf="filter">
-		<ion-segment (ionChange)="segmentChanged($event)">
+		<ion-segment [(ngModel)]="show" (ionChange)="segmentChanged($event)">
 			<ion-segment-button value="tutte">
 				<ion-icon name="apps"></ion-icon>
 			</ion-segment-button>
@@ -42,15 +42,15 @@
 		<ion-refresher-content pullingText="Trascina per aggiornare" refreshingText="Solo un secondo..."></ion-refresher-content>
 	</ion-refresher>
 	<!-- <div *ngIf="filter" class="filter-space"></div> -->
-	<ion-list>
-		<!-- <ion-list-header>Da Pagare</ion-list-header> -->
+	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
+		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
 			<ion-item (click)="showBolletta(bolletta, bolletta.id)" detail-push>
 				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
 				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
-				<h2>{{ bolletta.utenza }}</h2>
+				<h1>{{ bolletta.utenza }}</h1>
 				<p>{{ bolletta.scadenza }}</p>
 			</ion-item>
 			<ion-item-options>
@@ -62,9 +62,12 @@
 				</button>
 			</ion-item-options>
 		</ion-item-sliding>
+		<ion-item>
+			<div class="totale">€ {{ totale }}</div>
+			<h1 class="totale-text" color="light">TOTALE</h1>
+		</ion-item>
 	</ion-list>
-	<ion-list *ngIf="pagate.length != 0">
-		<!-- <ion-item-divider>Pagate</ion-item-divider> -->
+	<ion-list class="pagate" *ngIf="pagate.length != 0">
 		<ion-list-header>PAGATE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of pagate">
 			<ion-item (click)="showBolletta(bolletta, bolletta.id)">
@@ -72,7 +75,7 @@
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
 				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
-				<h2>{{ bolletta.utenza }}</h2>
+				<h1>{{ bolletta.utenza }}</h1>
 				<p>{{ bolletta.scadenza }}</p>
 			</ion-item>
 			<ion-item-options>

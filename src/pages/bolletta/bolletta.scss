@@ -1,16 +1,38 @@
 page-bolletta {
-    .utenza {
-        font-size: 3vw !important;
-        text-align: center;
+    .card {
+        border: 2px solid color($colors, primary);
+
+        .card-header {
+            text-align: center;
+            border-bottom: 2px solid color($colors, primary);
+            margin: 0 8vw 2vh 8vw;
+
+            h1 {
+                font-size: 8vw;
+                font-weight: bold;
+            }
+        }
+
+        ion-item {
+            height: 8vh;
+        }
+
+        ion-item.dataPagamento {
+            height: 6vh;
+
+            .pay-date {
+                text-align: right;
+            }
+        }
+
+        .pay-text {
+            color: white;
+            font-weight: bold !important;
+            text-align: right;
+        }
     }
 
-    .pay-date {
-        text-align: right;
-    }
-
-    .pay-text {
-        color: white;
-        font-weight: bold !important;
-        text-align: right;
+    ion-fab {
+        margin-bottom: 4vh;
     }
 }

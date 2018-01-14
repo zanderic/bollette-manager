@@ -15,6 +15,19 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+body, span, button, h1, h2, h3, h4, h5, h6, ion-item, ion-title, ion-label, ion-refresher {
+    font-family: ComingSoon;
+}
+
+.item h1, .item h2 {
+    margin-top: 0 !important;
+}
+
+// .content {
+//     background: url('../assets/imgs/notebook.jpeg') no-repeat center fixed;
+// 	background-size: cover;
+// }
+
 .scroll-content {
     border-top: 0 !important;
     // margin-top: 66px !important;
@@ -27,4 +40,9 @@
 .toolbar-title {
 	font-size: 5vw;
 	font-weight: bold !important;
+}
+
+@font-face {
+    font-family: ComingSoon;
+    src: url("../assets/fonts/coming-soon.woff2") format('woff2');
 }

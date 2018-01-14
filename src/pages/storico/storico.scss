@@ -1,0 +1,27 @@
+page-storico {
+    .filter-space {
+        height: 56px !important;
+    }
+
+    .bollette {
+        .importo {
+            float: right;
+            font-size: 5vw;
+        }
+        .dataPagamento {
+            float: right;
+            color: color($colors, primary);
+            // font-size: 5vw;
+            // font-weight: bold;
+        }
+        .totale-text {
+            font-weight: bold;
+            font-size: 5vw;
+        }
+        .totale {
+            float: right;
+            font-size: 5vw;
+            font-weight: bold;
+        }
+    }
+}

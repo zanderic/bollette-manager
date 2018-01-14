@@ -1,19 +1,32 @@
 page-home {
+    .bar-button {
+        margin-right: 15px;
+    }
+
     .filter-space {
         height: 56px !important;
     }
 
-    h2 {
-        // font-size: 5vw !important;
+    .list:first-of-type .list-header {
+        border-top: 0;
     }
-
-    p {
-        margin-top: 6px;
-        // font-size: 4vw !important;
-    }
-
+    
     .importo {
         float: right;
         font-size: 6vw;
+        font-weight: bold;
+    }
+    h1.totale-text {
+        // font-weight: bold !important;
+        font-size: 5vw;
+    }
+    .totale {
+        float: right;
+        font-size: 5vw;
+    }
+    
+    ion-fab {
+        margin-right: 15px;
+        margin-bottom: 15px;
     }
 }

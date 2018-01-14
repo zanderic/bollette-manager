@@ -17,8 +17,10 @@ export class BollettaPage {
 	}
 
 	payBolletta() {
-		this.bolletteSrvc.payBolletta(this.id);
-		this.navCtrl.pop();
+		this.bolletteSrvc.payBolletta(this.id)
+			.then((promise) => {
+				this.navCtrl.pop();
+			});
 	}
 
 	deleteBolletta() {

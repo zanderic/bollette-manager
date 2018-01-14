@@ -19,9 +19,10 @@ export class NuovaBollettaPage {
 
 	constructor(public navParams: NavParams, private viewCtrl: ViewController,
 		private bolletteSrvc: BolletteService, private toastCtrl: ToastController) {
-		this.bollette = this.navParams.data;
-		let date = new Date();
-		this.dataPagamento = date.toISOString();
+			this.bollette = this.navParams.data;
+			let date = new Date();
+			this.dataPagamento = date.toISOString(); // From ISO format to
+			this.dataPagamento = this.dataPagamento.substring(0, this.dataPagamento.indexOf("T")); // YYYY-MM-DD
 	}
 
 	addBolletta() {
@@ -50,9 +51,9 @@ export class NuovaBollettaPage {
 				id: 0, // This will change
 				utenza: this.utenza,
 				importo: this.importo,
-				scadenza: this.parseISOString(this.scadenza),
+				scadenza: this.scadenza,
 				pagata: this.pagata,
-				dataPagamento: this.parseISOString(this.dataPagamento),
+				dataPagamento: this.dataPagamento,
 				icona: icona
 			};
 			this.bolletteSrvc.addBolletta(this.nuovaBolletta);
@@ -73,52 +74,5 @@ export class NuovaBollettaPage {
 			position: "bottom"
 		});
 		toast.present();
-	}
-
-	parseISOString(date: string) {
-		// var b = s.split(/\D+/);
-		let array = date.split("-");
-		let day: string = array[2];
-		let month: string = array[1];
-		let year: string = array[0]
-		switch (month) {
-			case "01":
-				month = "gennaio";
-				break;
-			case "02":
-				month = "febbraio";
-				break;
-			case "03":
-				month = "marzo";
-				break;
-			case "04":
-				month = "aprile";
-				break;
-			case "05":
-				month = "maggio";
-				break;
-			case "06":
-				month = "giugno";
-				break;
-			case "07":
-				month = "luglio";
-				break;
-			case "08":
-				month = "agosto";
-				break;
-			case "09":
-				month = "settembre";
-				break;
-			case "10":
-				month = "ottobre";
-				break;
-			case "11":
-				month = "novembre";
-				break;
-			case "12":
-				month = "dicembre";
-				break;
-		}
-		return day + " " + month + " " + year;
 	}
 }

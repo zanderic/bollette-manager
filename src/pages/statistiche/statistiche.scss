@@ -1,0 +1,17 @@
+page-statistiche {
+    .card-header {
+        font-weight: bold;
+    }
+
+    .chart {
+        position: relative;
+    }
+
+    .chart-bar {
+        height: 35vh;
+    }
+
+    .chart-pie {
+        height: 40vh;
+    }
+}

@@ -3,6 +3,11 @@ page-storico {
         height: 56px !important;
     }
 
+    .list:first-of-type .list-header {
+        border-top: 0;
+        margin-bottom: 0;
+    }
+
     .bollette {
         .importo {
             float: right;
@@ -23,5 +28,9 @@ page-storico {
             font-size: 5vw;
             font-weight: bold;
         }
+    }
+
+    .segment .segment-activated {
+        border-color: color($colors, light) !important;
     }
 }

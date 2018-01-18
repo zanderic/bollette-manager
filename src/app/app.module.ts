@@ -9,6 +9,8 @@ import { HomePage } from '../pages/home/home';
 import { BollettaPage } from '../pages/bolletta/bolletta'; 
 import { NuovaBollettaPage } from '../pages/nuova-bolletta/nuova-bolletta';
 import { StoricoPage } from '../pages/storico/storico';
+import { PopoverPage } from '../pages/popover/popover';
+import { StatistichePage } from '../pages/statistiche/statistiche';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -22,7 +24,9 @@ import { BolletteService } from '../services/bollette.services';
 		HomePage,
 		BollettaPage,
 		NuovaBollettaPage,
-		StoricoPage
+		StoricoPage,
+		PopoverPage,
+		StatistichePage
 	],
 	imports: [
 		BrowserModule,
@@ -36,7 +40,9 @@ import { BolletteService } from '../services/bollette.services';
 		HomePage,
 		BollettaPage,
 		NuovaBollettaPage,
-		StoricoPage
+		StoricoPage,
+		PopoverPage,
+		StatistichePage
 	],
 	providers: [
 		StatusBar,

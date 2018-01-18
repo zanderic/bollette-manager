@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { BolletteService } from '../services/bollette.services';
 import { StoricoPage } from '../pages/storico/storico';
+import { StatistichePage } from '../pages/statistiche/statistiche';
 
 @Component({
 	templateUrl: 'app.html'
@@ -13,17 +14,19 @@ import { StoricoPage } from '../pages/storico/storico';
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
 	rootPage: any = HomePage;
-	pages: Array<{title: string, component: any}>;
+	pages: Array<{title: string, component: any, icon: string}>;
 
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private bolletteSrvc: BolletteService) {
-		this.bolletteSrvc.downloadBollette();
-		this.initializeApp();
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+		private bolletteSrvc: BolletteService) {
+			this.bolletteSrvc.downloadBollette();
+			this.initializeApp();
 
-		// used for an example of ngFor and navigation
-		this.pages = [
-			{ title: 'Home', component: HomePage },
-			{ title: 'Storico', component: StoricoPage }
-		];
+			// used for an example of ngFor and navigation
+			this.pages = [
+				{ title: 'Home', component: HomePage, icon: "home" },
+				{ title: 'Storico', component: StoricoPage, icon: "list" },
+				{ title: 'Statistiche', component: StatistichePage, icon: "pie" }
+			];
 	}
 
 	initializeApp() {

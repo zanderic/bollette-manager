@@ -1,0 +1,45 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Statistiche</ion-title>
+		<ion-buttons end>
+			<!-- <button ion-button icon-only (click)="showFilter()">
+					<ion-icon name="funnel"></ion-icon>
+				</button> -->
+			<!-- <button ion-button icon-only (click)="uploadBollette()">
+				<ion-icon name="cloud-upload"></ion-icon>
+			</button> -->
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-card>
+		<ion-card-header>Bollette ricevute</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-bar">
+				<canvas #barCanvas></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+	
+	<ion-card>
+		<ion-card-header>Spesa totale</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-pie">
+				<canvas #pieCanvas></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+	
+	<ion-card>
+		<ion-card-header>Storico importi</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-line">
+				<canvas #lineCanvas></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+</ion-content>

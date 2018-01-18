@@ -1,15 +1,16 @@
 <ion-menu [content]="content">
 	<ion-header>
-		<ion-toolbar>
-			<ion-title>Menu</ion-title>
+		<ion-toolbar color="primary">
+			<ion-title>Bollette Manager</ion-title>
 		</ion-toolbar>
 	</ion-header>
 
 	<ion-content>
-		<ion-list>
-			<button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-				{{p.title}}
-			</button>
+		<ion-list no-lines>
+			<ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+				<ion-icon name="{{ p.icon }}" item-start color="light" large></ion-icon>
+				{{ p.title }}
+			</ion-item>
 		</ion-list>
 	</ion-content>
 </ion-menu>

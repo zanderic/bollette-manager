@@ -14,13 +14,14 @@ export class HomePage {
 	bollette: Bolletta[] = [];
 	pagate: Bolletta[] = [];
 	daPagare: Bolletta[] = [];
-	show: string = "tutte";
-	filter: boolean = true;
 	totale: number = 0;
+	today: string;
 
 	constructor(private navCtrl: NavController, private bolletteSrvc: BolletteService, private modalCtrl: ModalController,
 		private toastCtrl: ToastController) {
-			this.bollettaPage = BollettaPage;
+		this.bollettaPage = BollettaPage;
+		this.today = new Date().toISOString();
+		this.today = this.today.substring(0, this.today.indexOf("T")); // YYYY-MM-DD
 	}
 
 	ionViewWillEnter() {
@@ -32,41 +33,26 @@ export class HomePage {
 	}
 
 	nuovaBollettaModal() {
-		let modal = this.modalCtrl.create(NuovaBollettaPage, this.bollette);
+		let modal = this.modalCtrl.create(NuovaBollettaPage);
 		modal.onDidDismiss(data => {
 			this.callStorage();
 		});
 		modal.present();
 	}
-
-	segmentChanged(choice)  {
-		this.show = choice.value;
-		this.divideBollette();
-	}
 	
 	divideBollette() {
 		this.pagate = [];
 		this.daPagare = [];
-		this.bollette.forEach((item, index) => {
+		this.bollette.forEach((item, index) => { // Forse si dovrà partire dalla fine dell'array con le ultime bollette!
 			item.id = index; // Update index of bollette
-			if (this.show == "tutte") {
-				if (item.pagata && this.pagate.length < 3) {
-					this.pagate.push(item);
-				}
-				if (!item.pagata) {
-					this.daPagare.push(item);
-				}
-			} else {
-				if (item.pagata && item.utenza == this.show && this.pagate.length < 3) {
-					this.pagate.push(item);
-				}
-				if (!item.pagata && item.utenza == this.show) {
-					this.daPagare.push(item);
-				}
+			if (item.pagata && this.pagate.length < 5) {
+				this.pagate.push(item);
+			}
+			if (!item.pagata) {
+				this.daPagare.push(item);
 			}
 		});
 		this.calcolaTotale();
-		console.log(this.show);
 		console.log(this.daPagare);
 		console.log(this.pagate);
 	}
@@ -75,16 +61,8 @@ export class HomePage {
 		this.totale = 0;
 		this.daPagare.forEach(item => {
 			this.totale = Number(this.totale) + Number(item.importo);
-			console.log(Number(item.importo));
 		});
-	}
-
-	showFilter() {
-		if (this.filter) {
-			this.filter = false;
-		} else {
-			this.filter = true;
-		}
+		this.totale = Number(this.totale.toFixed(2));
 	}
 
 	uploadBollette() {
@@ -100,8 +78,10 @@ export class HomePage {
 	}
 
 	deleteBolletta(index) {
-		this.bolletteSrvc.deleteBolletta(index);
-		this.callStorage();
+		this.bolletteSrvc.deleteBolletta(index)
+			.then((promise) => {
+				this.callStorage();
+		});
 	}
 
 	aggiorna(refresher) {
@@ -118,7 +98,7 @@ export class HomePage {
 	toast(msg) {
 		let toast = this.toastCtrl.create({
 			message: msg,
-			duration: 1500,
+			duration: 500,
 			position: "bottom"
 		});
 		toast.present();
@@ -130,4 +110,51 @@ export class HomePage {
 			this.divideBollette();
 		});
 	}
+
+	parseISOString(date: string) {
+		let array = date.split("-");
+		let day: string = array[2];
+		let month: string = array[1];
+		let year: string = array[0]
+		switch (month) {
+			case "01":
+				month = "gennaio";
+				break;
+			case "02":
+				month = "febbraio";
+				break;
+			case "03":
+				month = "marzo";
+				break;
+			case "04":
+				month = "aprile";
+				break;
+			case "05":
+				month = "maggio";
+				break;
+			case "06":
+				month = "giugno";
+				break;
+			case "07":
+				month = "luglio";
+				break;
+			case "08":
+				month = "agosto";
+				break;
+			case "09":
+				month = "settembre";
+				break;
+			case "10":
+				month = "ottobre";
+				break;
+			case "11":
+				month = "novembre";
+				break;
+			case "12":
+				month = "dicembre";
+				break;
+		}
+		return day + " " + month + " " + year;
+	}
 }
+

@@ -3,7 +3,7 @@
 		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Bollette Manager</ion-title>
+		<ion-title>{{ parseISOString(today) }}</ion-title>
 		<ion-buttons end>
 			<!-- <button ion-button icon-only (click)="showFilter()">
 				<ion-icon name="funnel"></ion-icon>
@@ -13,35 +13,12 @@
 			</button>
 		</ion-buttons>
 	</ion-navbar>
-	<ion-toolbar *ngIf="filter">
-		<ion-segment [(ngModel)]="show" (ionChange)="segmentChanged($event)">
-			<ion-segment-button value="tutte">
-				<ion-icon name="apps"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Luce">
-				<ion-icon name="bulb"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Acqua">
-				<ion-icon name="water"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Gas">
-				<ion-icon name="bonfire"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Internet">
-				<ion-icon name="wifi"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Rifiuti">
-				<ion-icon name="trash"></ion-icon>
-			</ion-segment-button>
-		</ion-segment>
-	</ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 	<ion-refresher (ionRefresh)="aggiorna($event)">
 		<ion-refresher-content pullingText="Trascina per aggiornare" refreshingText="Solo un secondo..."></ion-refresher-content>
 	</ion-refresher>
-	<!-- <div *ngIf="filter" class="filter-space"></div> -->
 	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
 		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
@@ -51,7 +28,7 @@
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
 				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
 				<h1>{{ bolletta.utenza }}</h1>
-				<p>{{ bolletta.scadenza }}</p>
+				<p>{{ parseISOString(bolletta.scadenza) }}</p>
 			</ion-item>
 			<ion-item-options>
 				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">
@@ -63,7 +40,7 @@
 			</ion-item-options>
 		</ion-item-sliding>
 		<ion-item>
-			<div class="totale">€ {{ totale }}</div>
+			<div class="totale">€ {{ totale.toFixed(2) }}</div> <!-- NOVITAAAAAAAAAAAA -->
 			<h1 class="totale-text" color="light">TOTALE</h1>
 		</ion-item>
 	</ion-list>
@@ -76,7 +53,7 @@
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
 				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
 				<h1>{{ bolletta.utenza }}</h1>
-				<p>{{ bolletta.scadenza }}</p>
+				<p>{{ parseISOString(bolletta.scadenza) }}</p>
 			</ion-item>
 			<ion-item-options>
 				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">

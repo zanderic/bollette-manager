@@ -5,12 +5,12 @@
 		</button>
 		<ion-title>Storico</ion-title>
 		<ion-buttons end>
-			<button ion-button icon-only (click)="showFilter()">
+			<button ion-button icon-only (click)="presentPopover($event)">
 				<ion-icon name="funnel"></ion-icon>
 			</button>
 		</ion-buttons>
 	</ion-navbar>
-	<ion-toolbar *ngIf="filter">
+	<!-- <ion-toolbar>
 		<ion-segment [(ngModel)]="show" (ionChange)="segmentChanged($event)">
 			<ion-segment-button value="tutte">
 				<ion-icon name="apps"></ion-icon>
@@ -31,12 +31,12 @@
 				<ion-icon name="trash"></ion-icon>
 			</ion-segment-button>
 		</ion-segment>
-	</ion-toolbar>
+	</ion-toolbar> -->
 </ion-header>
 
 <ion-content padding>
 	<ion-list class="bollette" *ngIf="bolletteToShow.length != 0">
-		<!-- (click)="showBolletta(bolletta, bolletta.id)" -->
+		<ion-list-header>ORDINE PER {{ displayLabel }}</ion-list-header>
 		<ion-item *ngFor="let bolletta of bolletteToShow">
 			<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start></ion-icon>
 			<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start></ion-icon>
@@ -46,16 +46,16 @@
 						<h1>{{ bolletta.utenza }}</h1>
 					</ion-col>
 					<ion-col>
-						<div class="importo">€ {{ bolletta.importo }}</div>
+						<div class="importo">€ {{ bolletta.importo }}</div>
 					</ion-col>
 				</ion-row>
 				<ion-row>
 					<ion-col>
-						<p>{{ bolletta.scadenza }}</p>
+						<p>{{ parseISOString(bolletta.scadenza) }}</p>
 					</ion-col>
 					<ion-col *ngIf="bolletta.pagata">
 						<p class="dataPagamento">
-							<ion-icon name="checkmark-circle-outline" color="primary"></ion-icon> {{ parseToISO(bolletta.dataPagamento) }}
+							<ion-icon name="checkmark-circle-outline" color="primary"></ion-icon> {{ parseISOString(bolletta.dataPagamento) }}
 						</p>
 					</ion-col>
 				</ion-row>
@@ -67,3 +67,28 @@
 		</ion-item>
 	</ion-list>
 </ion-content>
+
+<ion-footer>
+	<ion-toolbar color="primary">
+		<ion-segment [(ngModel)]="show" (ionChange)="segmentChanged($event)">
+			<ion-segment-button value="tutte">
+				<ion-icon name="apps" color="light"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Luce">
+				<ion-icon name="bulb" color="light"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Acqua">
+				<ion-icon name="water" color="light"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Gas">
+				<ion-icon name="bonfire" color="light"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Internet">
+				<ion-icon name="wifi" color="light"></ion-icon>
+			</ion-segment-button>
+			<ion-segment-button value="Rifiuti">
+				<ion-icon name="trash" color="light"></ion-icon>
+			</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,27 @@
+<ion-list radio-group (ionChange)="sortBollette($event)" [(ngModel)]="display">
+	<ion-list-header>Ordinamento</ion-list-header>
+	<ion-item>
+		<ion-label>Scadenza</ion-label>
+		<ion-radio value=0></ion-radio>
+	</ion-item>
+	<!-- <ion-item>
+		<ion-label><ion-icon name="arrow-down" item-end></ion-icon>Scadenza</ion-label>
+		<ion-radio value=1></ion-radio>
+	</ion-item> -->
+	<ion-item>
+		<ion-label>Data pagamento</ion-label>
+		<ion-radio value=1></ion-radio>
+	</ion-item>
+	<!-- <ion-item>
+		<ion-label><ion-icon name="arrow-down" item-end></ion-icon>Data pagamento</ion-label>
+		<ion-radio value=3></ion-radio>
+	</ion-item> -->
+	<ion-item>
+		<ion-label><ion-icon name="arrow-up" item-end></ion-icon>Importo</ion-label>
+		<ion-radio value=2></ion-radio>
+	</ion-item>
+	<ion-item>
+		<ion-label><ion-icon name="arrow-down" item-end></ion-icon>Importo</ion-label>
+		<ion-radio value=3></ion-radio>
+	</ion-item>
+</ion-list>

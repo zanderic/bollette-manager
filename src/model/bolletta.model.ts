@@ -1,7 +1,7 @@
 export interface Bolletta {
     id: number,
     utenza: string,
-    importo: number,
+    importo: string,
 	scadenza: string,
     pagata: boolean,
     dataPagamento: string,

@@ -8,12 +8,14 @@ import { BolletteService } from '../../services/bollette.services';
 	templateUrl: 'nuova-bolletta.html',
 })
 export class NuovaBollettaPage {
-	private nuovaBolletta: Bolletta;
-	public utenza: string;
-	public importo: string;
-	public scadenza: string;
-	public pagata: boolean = false;
-	public dataPagamento: string;
+	nuovaBolletta: Bolletta;
+	utenza: string;
+	importo: string;
+	inizioFatturazione: string;
+	fineFatturazione: string;
+	scadenza: string;
+	pagata: boolean = false;
+	dataPagamento: string;
 
 	constructor(private viewCtrl: ViewController, private bolletteSrvc: BolletteService, private toastCtrl: ToastController) {
 		let date = new Date();
@@ -22,7 +24,7 @@ export class NuovaBollettaPage {
 	}
 
 	addBolletta() {
-		if (this.utenza && this.importo && this.scadenza) {
+		if (this.utenza && this.importo && this.scadenza && this.inizioFatturazione && this.fineFatturazione) {
 			let icona: string;
 			switch (this.utenza) {
 				case "Luce":
@@ -46,6 +48,8 @@ export class NuovaBollettaPage {
 				id: 0, // This will change
 				utenza: this.utenza,
 				importo: parseFloat(this.importo).toFixed(2),
+				inizioFatturazione: this.inizioFatturazione,
+				fineFatturazione: this.fineFatturazione,
 				scadenza: this.scadenza,
 				pagata: this.pagata,
 				dataPagamento: this.dataPagamento,

@@ -3,6 +3,7 @@ import { NavController, PopoverController, Events } from 'ionic-angular';
 import { BolletteService } from '../../services/bollette.services';
 import { Bolletta } from '../../model/bolletta.model';
 import { PopoverPage } from '../popover/popover';
+import { BollettaPage } from '../bolletta/bolletta';
 
 @Component({
 	selector: 'page-storico',
@@ -30,6 +31,10 @@ export class StoricoPage {
 				this.displayToLabel();
 				this.sortBollette(this.display);
 			});
+	}
+
+	showBolletta(bolletta, index) {
+		this.navCtrl.push(BollettaPage, { id: index, obj: bolletta });
 	}
 
 	presentPopover(event) {
@@ -82,12 +87,15 @@ export class StoricoPage {
 				break;
 			case "2": // Importo crescente
 				this.bolletteToShow.sort(function (a, b) {
-					return (a.importo > b.importo) ? -1 : ((a.importo < b.importo) ? 1 : 0);
+					console.log(a);
+					console.log(b);
+					console.log((Number(a.importo) > Number(b.importo)) ? -1 : ((Number(a.importo) < Number(b.importo)) ? 1 : 0));
+					return (Number(a.importo) > Number(b.importo)) ? -1 : ((Number(a.importo) < Number(b.importo)) ? 1 : 0);
 				});
 				break;
 			case "3": // Importo decrescente
 				this.bolletteToShow.sort(function (a, b) {
-					return (a.importo < b.importo) ? -1 : ((a.importo > b.importo) ? 1 : 0);
+					return (Number(a.importo) < Number(b.importo)) ? -1 : ((Number(a.importo) > Number(b.importo)) ? 1 : 0);
 				});
 				break;
 		}

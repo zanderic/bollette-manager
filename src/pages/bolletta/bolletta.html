@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content padding>
-	<!-- <ion-icon name="{{ bolletta.icona }}" item-start large></ion-icon> -->
 	<ion-card>
 		<ion-card-header>
 			<h1><ion-icon name="{{ bolletta.icona }}"></ion-icon> {{ bolletta.utenza.toUpperCase() }}</h1>
@@ -15,8 +14,12 @@
 				<ion-icon name="logo-euro" item-start></ion-icon>
 				<h1>{{ bolletta.importo }}</h1>
 			</ion-item>
-			<ion-item class="scadenza">
+			<ion-item class="periodo">
 				<ion-icon name="calendar" item-start></ion-icon>
+				<h2>{{ parseISOString(bolletta.inizioFatturazione) }} - {{ parseISOString(bolletta.fineFatturazione) }}</h2>
+			</ion-item>
+			<ion-item class="scadenza">
+				<ion-icon name="alert" item-start></ion-icon>
 				<h2>{{ parseISOString(bolletta.scadenza) }}</h2>
 			</ion-item>
 			<ion-item class="dataPagamento" *ngIf="bolletta.pagata" color="lightPrimary">

@@ -16,14 +16,14 @@ body, span, button, ion-item, ion-title, ion-label, ion-refresher, div.alert-mes
 
     .list {
         margin-top: 2vh;
+        
         .item {
-            // color: #757575;
-            
-            background-color: #4caf50;
             background-color: rgba(76, 175, 80, 0.8);
             margin: 0 0 1vh 4vw;
             padding: 1vh 0 1vh 10vw;
             border-radius: 20px;
+            border: 3px solid;
+            border-color: rgba(76, 175, 80, 1);
 
             .label {
                 font-weight: bold;

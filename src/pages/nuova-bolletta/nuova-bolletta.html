@@ -25,9 +25,26 @@
 			<ion-label fixed>Importo</ion-label>
 			<ion-input type="number" [(ngModel)]="importo"></ion-input>
 		</ion-item>
+		<!-- <ion-item-divider>Periodo</ion-item-divider> -->
+		<ion-grid no-padding>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label floating>Periodo da</ion-label>
+						<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="inizioFatturazione" doneText="conferma" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
+					</ion-item>
+				</ion-col>
+				<ion-col>
+					<ion-item>
+						<ion-label floating>a</ion-label>
+						<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="fineFatturazione" doneText="conferma" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
 		<ion-item>
 			<ion-label fixed>Scadenza</ion-label>
-			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="scadenza" doneText="fatto" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
+			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="scadenza" doneText="conferma" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
 		</ion-item>
 		<ion-item>
 			<ion-label fixed>Pagata</ion-label>
@@ -35,7 +52,7 @@
 		</ion-item>
 		<ion-item *ngIf="pagata">
 			<ion-label fixed>Data</ion-label>
-			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dataPagamento" doneText="fatto" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
+			<ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="dataPagamento" doneText="conferma" cancelText="cancella" monthNames="gennaio, febbraio, marzo, aprile, maggio, giugno, luglio, agosto, settembre, ottobre, novembre, dicembre"></ion-datetime>
 		</ion-item>
 	</ion-list>
 	<button ion-button full (click)="addBolletta()" color="secondary">Aggiungi</button>

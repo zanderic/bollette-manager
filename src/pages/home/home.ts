@@ -43,15 +43,24 @@ export class HomePage {
 	divideBollette() {
 		this.pagate = [];
 		this.daPagare = [];
-		this.bollette.forEach((item, index) => { // Forse si dovrà partire dalla fine dell'array con le ultime bollette!
-			item.id = index; // Update index of bollette
-			if (item.pagata && this.pagate.length < 5) {
-				this.pagate.push(item);
+		for (let i = this.bollette.length - 1; i >= 0; i--) {
+			this.bollette[i].id = i;
+			if (this.bollette[i].pagata && this.pagate.length < 5) {
+				this.pagate.push(this.bollette[i]);
 			}
-			if (!item.pagata) {
-				this.daPagare.push(item);
+			if (!this.bollette[i].pagata) {
+				this.daPagare.push(this.bollette[i]);
 			}
-		});
+		}
+		// this.bollette.forEach((item, index) => {
+		// 	item.id = index; // Update index of bollette
+		// 	if (item.pagata && this.pagate.length < 5) {
+		// 		this.pagate.push(item);
+		// 	}
+		// 	if (!item.pagata) {
+		// 		this.daPagare.push(item);
+		// 	}
+		// });
 		this.calcolaTotale();
 		console.log(this.daPagare);
 		console.log(this.pagate);

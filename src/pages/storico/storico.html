@@ -3,41 +3,19 @@
 		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Storico</ion-title>
+		<ion-title>Archivio</ion-title>
 		<ion-buttons end>
 			<button ion-button icon-only (click)="presentPopover($event)">
 				<ion-icon name="funnel"></ion-icon>
 			</button>
 		</ion-buttons>
 	</ion-navbar>
-	<!-- <ion-toolbar>
-		<ion-segment [(ngModel)]="show" (ionChange)="segmentChanged($event)">
-			<ion-segment-button value="tutte">
-				<ion-icon name="apps"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Luce">
-				<ion-icon name="bulb"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Acqua">
-				<ion-icon name="water"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Gas">
-				<ion-icon name="bonfire"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Internet">
-				<ion-icon name="wifi"></ion-icon>
-			</ion-segment-button>
-			<ion-segment-button value="Rifiuti">
-				<ion-icon name="trash"></ion-icon>
-			</ion-segment-button>
-		</ion-segment>
-	</ion-toolbar> -->
 </ion-header>
 
 <ion-content padding>
 	<ion-list class="bollette" *ngIf="bolletteToShow.length != 0">
 		<ion-list-header>ORDINE PER {{ displayLabel }}</ion-list-header>
-		<ion-item *ngFor="let bolletta of bolletteToShow">
+		<ion-item *ngFor="let bolletta of bolletteToShow" (click)="showBolletta(bolletta, bolletta.id)">
 			<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start></ion-icon>
 			<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start></ion-icon>
 			<ion-grid no-padding>

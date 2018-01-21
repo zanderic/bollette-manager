@@ -1,5 +1,5 @@
 // http://ionicframework.com/docs/theming/
-body, span, button, ion-item, ion-title, ion-label, ion-refresher, div.alert-message {
+body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert-message {
     font-family: ComingSoon;
 }
 
@@ -9,9 +9,6 @@ body, span, button, ion-item, ion-title, ion-label, ion-refresher, div.alert-mes
 }
 
 .menu-inner {
-    // .scroll-content, .list, .item {
-    //     background-color: color($colors, lightPrimary);
-    // }
     font-family: ComingSoon;
 
     .list {

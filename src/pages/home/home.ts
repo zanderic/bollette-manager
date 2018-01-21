@@ -4,6 +4,7 @@ import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
 import { NuovaBollettaPage } from '../nuova-bolletta/nuova-bolletta';
 import { BollettaPage } from '../bolletta/bolletta';
+import moment from 'moment';
 
 @Component({
 	selector: 'page-home',
@@ -16,6 +17,7 @@ export class HomePage {
 	daPagare: Bolletta[] = [];
 	totale: number = 0;
 	today: string;
+	// scadenzaText: string = "#666";
 
 	constructor(private navCtrl: NavController, private bolletteSrvc: BolletteService, private modalCtrl: ModalController,
 		private toastCtrl: ToastController) {
@@ -39,7 +41,7 @@ export class HomePage {
 		});
 		modal.present();
 	}
-	
+
 	divideBollette() {
 		this.pagate = [];
 		this.daPagare = [];
@@ -66,6 +68,17 @@ export class HomePage {
 		console.log(this.pagate);
 	}
 
+	oneWeekAlert(scadenza) {
+		let split = scadenza.split("-");
+		let dateToCompare = moment([split[0], split[1] - 1, split[2]]);
+		let dateToday = moment(); // today
+		if (dateToCompare.diff(dateToday, "days") < 7) {
+			console.log(dateToCompare.diff(dateToday, "days"));
+			console.log("meno di una settimana!");
+			// this.scadenzaText = "danger";
+		}
+	}
+
 	calcolaTotale() {
 		this.totale = 0;
 		this.daPagare.forEach(item => {
@@ -83,14 +96,14 @@ export class HomePage {
 		this.bolletteSrvc.payBolletta(index)
 			.then((promise) => {
 				this.callStorage();
-		});
+			});
 	}
 
 	deleteBolletta(index) {
 		this.bolletteSrvc.deleteBolletta(index)
 			.then((promise) => {
 				this.callStorage();
-		});
+			});
 	}
 
 	aggiorna(refresher) {

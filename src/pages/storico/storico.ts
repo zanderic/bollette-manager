@@ -19,18 +19,25 @@ export class StoricoPage {
 
 	constructor(public navCtrl: NavController, private bolletteSrvc: BolletteService, private popoverCtrl: PopoverController,
 		private events: Events) {
-			this.bolletteSrvc.getBollette()
-				.then((bollette) => {
-					this.bollette = bollette;
-					this.divideBollette();
-				})
+			this.callStorage();
 			
 			this.events.subscribe("display:changed", (number) => {
 				this.display = number;
-				console.log(this.display);
 				this.displayToLabel();
 				this.sortBollette(this.display);
 			});
+	}
+
+	ionViewWillEnter() {
+		this.callStorage();
+	}
+
+	callStorage() {
+		this.bolletteSrvc.getBollette()
+			.then((bollette) => {
+				this.bollette = bollette;
+				this.divideBollette();
+			})
 	}
 
 	showBolletta(bolletta, index) {

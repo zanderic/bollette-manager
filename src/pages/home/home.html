@@ -28,7 +28,7 @@
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
 				<ion-icon *ngIf="bolletta.pagata" name="checkmark-circle-outline" item-end color="primary"></ion-icon>
 				<h1>{{ bolletta.utenza }}</h1>
-				<p>{{ parseISOString(bolletta.scadenza) }}</p>
+				<p ion-text>{{ parseISOString(bolletta.scadenza) }}</p>
 			</ion-item>
 			<ion-item-options>
 				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">

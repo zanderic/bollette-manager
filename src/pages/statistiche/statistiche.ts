@@ -12,25 +12,37 @@ export class StatistichePage {
 
 	@ViewChild('barCanvas') barCanvas;
 	@ViewChild('pieCanvas') pieCanvas;
-	@ViewChild('lineCanvas') lineCanvas;
+	@ViewChild('lineCanvasLuce') lineCanvasLuce;
+	@ViewChild('lineCanvasAcqua') lineCanvasAcqua;
+	@ViewChild('lineCanvasGas') lineCanvasGas;
+	@ViewChild('lineCanvasInternet') lineCanvasInternet;
+	@ViewChild('lineCanvasRifiuti') lineCanvasRifiuti;
 
 	bollette: Bolletta[];
 	quantitaBollette: Number[];
 	sommaImportiBollette: Number[];
 	barChart: any;
 	pieChart: any;
-	lineChart: any;
+	lineChartLuce: any;
+	lineChartAcqua: any;
+	lineChartGas: any;
+	lineChartInternet: any;
+	lineChartRifiuti: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private bolletteSrvc: BolletteService) {
 		console.log("costruttore");
 		this.bolletteSrvc.getBollette().then((bollette => {
 			this.bollette = bollette;
-			
+
 			this.quantitaBollette = this.countQuantita();
 			this.createBarChart();
 			this.sommaImportiBollette = this.countImporto();
 			this.createPieChart();
-			this.createLineChart();
+			this.createLineChart("Luce");
+			this.createLineChart("Acqua");
+			this.createLineChart("Gas");
+			this.createLineChart("Internet");
+			this.createLineChart("Rifiuti");
 		}))
 	}
 
@@ -118,32 +130,81 @@ export class StatistichePage {
 		});
 	}
 
-	createLineChart() {
-		this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+	createLineChart(utenza: string) {
+		// Raccolta dati per l'utenza analizzata
+		let scadenze: string[] = [];
+		let importi: string[] = [];
+		for (let i = 0; i < this.bollette.length; i++) {
+			const bolletta = this.bollette[i];
+			if (bolletta.utenza == utenza) {
+				let scadenza = bolletta.scadenza.split("-");
+				scadenze.push(scadenza[2] + "/" + scadenza[1] + "/" + scadenza[0]);
+				importi.push(bolletta.importo);
+			}
+		}
+		// Ancore agli elementi corretti del DOM
+		let chart;
+		let canvas;
+		let lightColor;
+		let fullColor;
+		switch (utenza) {
+			case "Luce":
+				chart = this.lineChartLuce;
+				canvas = this.lineCanvasLuce;
+				lightColor = "rgba(255, 193, 7, 0.4)";
+				fullColor = "rgba(255, 193, 7, 1)"
+				break;
+			case "Acqua":
+				chart = this.lineChartAcqua;
+				canvas = this.lineCanvasAcqua;
+				lightColor = "rgba(3, 155, 229, 0.4)";
+				fullColor = "rgba(3, 155, 229, 1)"
+				break;
+			case "Gas":
+				chart = this.lineChartGas;
+				canvas = this.lineCanvasGas;
+				lightColor = "rgba(244, 67, 54, 0.4)";
+				fullColor = "rgba(244, 67, 54, 1)"
+				break;
+			case "Internet":
+				chart = this.lineChartInternet;
+				canvas = this.lineCanvasInternet;
+				lightColor = "rgba(67, 160, 71, 0.4)";
+				fullColor = "rgba(67, 160, 71, 1)"
+				break;
+			case "Rifiuti":
+				chart = this.lineChartRifiuti;
+				canvas = this.lineCanvasRifiuti;
+				lightColor = "rgba(117, 117, 117, 0.4)";
+				fullColor = "rgba(117, 117, 117, 1)"
+				break;
+		}
+		// Definizione del grafico
+		chart = new Chart(canvas.nativeElement, {
 			type: 'line',
 			data: {
-				labels: ["January", "February", "March", "April", "May", "June", "July"],
+				labels: scadenze,
 				datasets: [{
-					label: "My First dataset",
+					label: utenza,
+					data: importi,
 					fill: false,
 					lineTension: 0.1,
-					backgroundColor: "rgba(75,192,192,0.4)",
-					borderColor: "rgba(75,192,192,1)",
+					backgroundColor: lightColor,
+					borderColor: fullColor,
 					borderCapStyle: 'butt',
 					borderDash: [],
 					borderDashOffset: 0.0,
 					borderJoinStyle: 'miter',
-					pointBorderColor: "rgba(75,192,192,1)",
+					pointBorderColor: fullColor,
 					pointBackgroundColor: "#fff",
 					pointBorderWidth: 1,
 					pointHoverRadius: 5,
-					pointHoverBackgroundColor: "rgba(75,192,192,1)",
-					pointHoverBorderColor: "rgba(220,220,220,1)",
+					pointHoverBackgroundColor: fullColor,
+					pointHoverBorderColor: fullColor,
 					pointHoverBorderWidth: 2,
 					pointRadius: 1,
 					pointHitRadius: 10,
-					data: [65, 59, 80, 81, 56, 55, 40],
-					spanGaps: false,
+					spanGaps: false
 				}]
 			},
 			options: {

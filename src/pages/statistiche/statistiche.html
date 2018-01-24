@@ -17,7 +17,7 @@
 
 <ion-content padding>
 	<ion-card>
-		<ion-card-header>Bollette ricevute</ion-card-header>
+		<ion-card-header>Numero di bollette</ion-card-header>
 		<ion-card-content>
 			<div class="chart chart-bar">
 				<canvas #barCanvas></canvas>
@@ -35,10 +35,45 @@
 	</ion-card>
 	
 	<ion-card>
-		<ion-card-header>Storico importi</ion-card-header>
+		<ion-card-header>Storico Luce</ion-card-header>
 		<ion-card-content>
 			<div class="chart chart-line">
-				<canvas #lineCanvas></canvas>
+				<canvas #lineCanvasLuce></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-card-header>Storico Acqua</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-line">
+				<canvas #lineCanvasAcqua></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-card-header>Storico Gas</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-line">
+				<canvas #lineCanvasGas></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+	<ion-card>
+		<ion-card-header>Storico Internet</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-line">
+				<canvas #lineCanvasInternet></canvas>
+			</div>
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-card-header>Storico Rifiuti</ion-card-header>
+		<ion-card-content>
+			<div class="chart chart-line">
+				<canvas #lineCanvasRifiuti></canvas>
 			</div>
 		</ion-card-content>
 	</ion-card>

@@ -19,17 +19,21 @@ page-bolletta {
 
         ion-item.dataPagamento {
             height: 6vh;
-
             .pay-date {
-                text-align: right;
+				text-align: right;
+				font-weight: bold;
             }
         }
 
         .pay-text {
             color: white;
-            font-weight: bold !important;
+            font-weight: bold;
             text-align: right;
-        }
+		}
+		
+		.button-clear { // Pagamento text
+			font-weight: bold;
+		}
     }
 
     ion-fab {

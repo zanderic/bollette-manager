@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Screenshot } from '@ionic-native/screenshot';
 
 @Component({
 	selector: 'page-bolletta',
@@ -10,11 +12,13 @@ import { BolletteService } from '../../services/bollette.services';
 export class BollettaPage {
 	bolletta: Bolletta;
 	id: number;
+	whatsappEnabled: boolean;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private bolletteSrvc: BolletteService,
-		private alertCtrl: AlertController) {
+		private alertCtrl: AlertController, private socialSharing: SocialSharing, private screenshot: Screenshot) {
 			this.bolletta = this.navParams.get("obj");
 			this.id = this.navParams.get("id");
+			this.checkWhatsapp();
 	}
 
 	payBolletta() {
@@ -31,10 +35,49 @@ export class BollettaPage {
 		});
 	}
 
-	showConfirm() {
+	checkWhatsapp() {
+		// Check if sharing is supported
+		this.socialSharing.canShareVia('com.whatsapp').then(() => {
+			this.whatsappEnabled = true;
+		}).catch(() => {
+			this.whatsappEnabled = false;
+		});
+	}
+
+	shareViaWhatsapp() {
+		if (this.whatsappEnabled) {
+			// Take screenshot
+			this.screenshot.URI(60).then((screen) => {
+				// Share via whatsapp
+				this.socialSharing.shareViaWhatsApp(null, screen.URI, null).then(() => {
+					console.log("YEP!");
+				}).catch(() => {
+					console.log("error");
+				});
+			}).catch(() => {
+				console.log("error in screenshot");
+			})
+		}
+	}
+
+	showConfirm(type: string) {
+		// Defining message
+		let t, m;
+		switch (type) {
+			case 'pay':
+				t = 'Pagare bolletta';
+				m = 'Confermi di aver pagato la bolletta?';
+				break;
+			case 'delete':
+				t = 'Eliminare bolletta';
+				m = 'Confermi di voler cancellare la bolletta?';
+				break;
+		}
+		
+		// Defining pupup
 		let confirm = this.alertCtrl.create({
-			title: "Eliminare bolletta",
-			message: "Confermi di voler cancellare la bolletta?",
+			title: t,
+			message: m,
 			buttons: [
 				{
 					text: 'Indietro',
@@ -46,8 +89,11 @@ export class BollettaPage {
 					text: 'Conferma',
 					handler: () => {
 						console.log('Agree clicked');
-						this.bolletteSrvc.deleteBolletta(this.id);
-						this.navCtrl.pop();
+						if (type == 'pay') {
+							this.payBolletta();
+						} else {
+							this.deleteBolletta();
+						}
 					}
 				}
 			]

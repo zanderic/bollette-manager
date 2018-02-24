@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "722770881831",
+    "firebase_url": "https://bollettemanager.firebaseio.com",
+    "project_id": "bollettemanager",
+    "storage_bucket": "bollettemanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722770881831:android:455ca9e7a11ed816",
+        "android_client_info": {
+          "package_name": "com.bollette.manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722770881831-p3c877qrd5oqvshul72o4v7sigv0u1e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7CU_rzoGon3Hl3zgBZYMwuJmxdueQCrg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

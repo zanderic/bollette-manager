@@ -3,6 +3,9 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
+import { FCM } from '@ionic-native/fcm';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Screenshot } from '@ionic-native/screenshot';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -47,8 +50,11 @@ import { BolletteService } from '../services/bollette.services';
 	providers: [
 		StatusBar,
 		SplashScreen,
-		{provide: ErrorHandler, useClass: IonicErrorHandler},
-		BolletteService
+		BolletteService,
+		FCM,
+		SocialSharing,
+		Screenshot,
+		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })
 export class AppModule {}

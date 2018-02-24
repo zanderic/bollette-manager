@@ -1,6 +1,11 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title>Bolletta</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="showConfirm('delete')">
+				<ion-icon name="trash"></ion-icon>
+			</button>
+		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -31,11 +36,13 @@
 				<h1 class="pay-text" color="light">PAGATA</h1>
 			</ion-item>
 		</ion-list>
+		<button ion-button icon-left *ngIf="!bolletta.pagata" block clear large (click)="showConfirm('pay')" color="primary">Pagamento</button>
 	</ion-card>
-	<ion-fab center bottom *ngIf="!bolletta.pagata" (click)="payBolletta()">
+
+	<!-- <ion-fab center bottom *ngIf="!bolletta.pagata" (click)="showConfirm('pay')">
 		<button ion-fab color="primary"><ion-icon name="checkmark"></ion-icon></button>
-	</ion-fab>
-	<ion-fab center bottom *ngIf="bolletta.pagata" (click)="showConfirm()">
-		<button ion-fab color="danger"><ion-icon name="close"></ion-icon></button>
+	</ion-fab> -->
+	<ion-fab center bottom (click)="shareViaWhatsapp()">
+		<button ion-fab color="secondary"><ion-icon name="share" color="light"></ion-icon></button>
 	</ion-fab>
 </ion-content>

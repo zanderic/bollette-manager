@@ -45,7 +45,6 @@ export class NuovaBollettaPage {
 			}
 
 			this.nuovaBolletta = {
-				id: 0, // This will change
 				utenza: this.utenza,
 				importo: parseFloat(this.importo).toFixed(2),
 				inizioFatturazione: this.inizioFatturazione,
@@ -55,10 +54,8 @@ export class NuovaBollettaPage {
 				dataPagamento: this.dataPagamento,
 				icona: icona
 			};
-			this.bolletteSrvc.addBolletta(this.nuovaBolletta)
-				.then((promise) => {
-					this.dismiss();	
-			});
+			this.bolletteSrvc.add(this.nuovaBolletta);
+			this.dismiss();
 		} else {
 			this.completaCampi();
 		}

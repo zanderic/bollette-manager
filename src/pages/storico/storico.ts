@@ -19,7 +19,7 @@ export class StoricoPage {
 
 	constructor(public navCtrl: NavController, private bolletteSrvc: BolletteService, private popoverCtrl: PopoverController,
 		private events: Events) {
-			this.callStorage();
+			this.getBollette();
 			
 			this.events.subscribe("display:changed", (number) => {
 				this.display = number;
@@ -29,19 +29,18 @@ export class StoricoPage {
 	}
 
 	ionViewWillEnter() {
-		this.callStorage();
+		this.getBollette();
 	}
 
-	callStorage() {
-		this.bolletteSrvc.getBollette()
-			.then((bollette) => {
-				this.bollette = bollette;
-				this.divideBollette();
-			})
+	getBollette() {
+		this.bolletteSrvc.get().subscribe(bollette => {
+			this.bollette = bollette;
+			this.divideBollette();
+		})
 	}
 
-	showBolletta(bolletta, index) {
-		this.navCtrl.push(BollettaPage, { id: index, obj: bolletta });
+	showBolletta(bolletta: Bolletta) {
+		this.navCtrl.push(BollettaPage, { obj: bolletta });
 	}
 
 	presentPopover(event) {
@@ -56,8 +55,8 @@ export class StoricoPage {
 
 	divideBollette() {
 		this.bolletteToShow = [];
-		this.bollette.forEach((item, index) => {
-			item.id = index; // Update index of bollette
+		this.bollette.forEach(item => {
+			// item.id = index; // Update index of bollette
 			if (this.show == "tutte") {
 				this.bolletteToShow.push(item);
 			} else if (item.utenza == this.show) {

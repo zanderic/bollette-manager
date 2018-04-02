@@ -1,73 +1,49 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
 import { Bolletta } from '../model/bolletta.model';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable() // Mandatory for a Service that uses another Service
 export class BolletteService {
-	private bollette: Bolletta[] = [];
-	private link: string = 'http://www.auronzovacanze.com/bollette/';
+	private bollette: Observable<Bolletta[]>
+	private bolletteRef: AngularFireList<Bolletta>;
 
-	constructor(private storage: Storage, private http: Http) {}
-    
-	addBolletta(bolletta: Bolletta) {
-		// bolletta.scadenza = this.parseISOString(bolletta.scadenza);
-		bolletta.scadenza = bolletta.scadenza;
-		// bolletta.dataPagamento = this.parseISOString(bolletta.dataPagamento);
-		bolletta.dataPagamento = bolletta.dataPagamento;
-		this.bollette.push(bolletta);
-		return this.storage.set("bollette", this.bollette); // Update storage
+	constructor(private firebaseDatabase: AngularFireDatabase) {
+		console.log("Constructor bolletteService");
+		this.bolletteRef = this.firebaseDatabase.list<Bolletta>("bollette", ref => ref.orderByChild("scadenza"));
+		// Use snapshotChanges().map() to store the key
+		this.bollette = this.bolletteRef.snapshotChanges()
+			.map(
+				changes => {
+					return changes.map(c => ({
+						key: c.payload.key, ...c.payload.val()
+					}));
+				}
+			);
 	}
-	
-	payBolletta(index) {
-		console.log(this.bollette[index]);
+
+	get() {
+		return this.bollette;
+	}
+
+	add(newBolletta: Bolletta) {
+		this.bolletteRef.push(newBolletta);
+	}
+
+	delete(key: string) {
+		this.bolletteRef.remove(key);
+	}
+
+	getById(bollettaID: string) {
+		console.log(bollettaID);
+		return this.firebaseDatabase.object("/bollette/" + bollettaID);
+	}
+	pay(key: string) {
 		let date = new Date().toISOString(); // From ISO to
 		date = date.substring(0, date.indexOf("T")); // YYYY-MM-DD
-		this.bollette[index].pagata = true;
-		this.bollette[index].dataPagamento = date;
-		return this.storage.set("bollette", this.bollette); // Update storage
-	}
-
-	deleteBolletta(index) {
-		this.bollette.splice(index, 1);
-		return this.storage.set("bollette", this.bollette); // Update storage
-	}
-
-	getBollette() {
-		return this.storage.get('bollette')
-			.then((bollette) => {
-					console.log("Storage");
-					console.log(bollette);
-					this.bollette = bollette == null ? [] : bollette; // If response is empty load an empty array
-					return this.bollette.slice();
-				}
-			);
-	}
-
-	uploadBollette() {
-		let bolletteJSON = JSON.stringify(this.bollette);
-		this.http.post(this.link + "post.php", bolletteJSON)
-			.subscribe(data => {
-				// this.storage.set("bollette", this.bollette); // Update storage
-				console.log("New data uploaded");
-				console.log(data);
-			}, error => {
-				console.log(error);
-			})
-	}
-
-	downloadBollette() {
-		this.http.get(this.link + "get.php")
-			.map(res => res.json())
-			// .subscribe has three callback: success, failure, validate
-			.subscribe(
-				result => {
-					console.log("Updated storage from downloaded data");
-					this.storage.set("bollette", result);
-				}, error => {
-					console.log(error);
-				}
-			);
+		
+		let bollettaToPay = this.getById(key);
+		bollettaToPay.update({ pagata: true, dataPagamento: date });
 	}
 }

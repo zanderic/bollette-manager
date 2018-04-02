@@ -11,28 +11,24 @@ import { Screenshot } from '@ionic-native/screenshot';
 })
 export class BollettaPage {
 	bolletta: Bolletta;
-	id: number;
 	whatsappEnabled: boolean;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private bolletteSrvc: BolletteService,
 		private alertCtrl: AlertController, private socialSharing: SocialSharing, private screenshot: Screenshot) {
 			this.bolletta = this.navParams.get("obj");
-			this.id = this.navParams.get("id");
+			console.log(this.bolletta.key);
+			console.log(this.bolletta);
 			this.checkWhatsapp();
 	}
 
 	payBolletta() {
-		this.bolletteSrvc.payBolletta(this.id)
-			.then((promise) => {
-				this.navCtrl.pop();
-		});
+		this.bolletteSrvc.pay(this.bolletta.key);
+		this.navCtrl.pop();
 	}
 
 	deleteBolletta() {
-		this.bolletteSrvc.deleteBolletta(this.id)
-			.then((promise) => {
-				this.navCtrl.pop();
-		});
+		this.bolletteSrvc.delete(this.bolletta.key);
+		this.navCtrl.pop();
 	}
 
 	checkWhatsapp() {
@@ -52,10 +48,10 @@ export class BollettaPage {
 				this.socialSharing.shareViaWhatsApp(null, screen.URI, null).then(() => {
 					console.log("YEP!");
 				}).catch(() => {
-					console.log("error");
+					console.log("Error");
 				});
 			}).catch(() => {
-				console.log("error in screenshot");
+				console.log("Error in screenshot");
 			})
 		}
 	}

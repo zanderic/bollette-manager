@@ -1,5 +1,5 @@
 export interface Bolletta {
-    id: number,
+	key?: any,
     utenza: string,
     importo: string,
     inizioFatturazione: string,

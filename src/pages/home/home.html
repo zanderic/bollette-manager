@@ -8,9 +8,9 @@
 			<!-- <button ion-button icon-only (click)="showFilter()">
 				<ion-icon name="funnel"></ion-icon>
 			</button> -->
-			<button ion-button icon-only (click)="uploadBollette()">
+			<!-- <button ion-button icon-only (click)="uploadBollette()">
 				<ion-icon name="cloud-upload"></ion-icon>
-			</button>
+			</button> -->
 		</ion-buttons>
 	</ion-navbar>
 </ion-header>
@@ -22,7 +22,8 @@
 	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
 		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
-			<ion-item (click)="showBolletta(bolletta, bolletta.id)" detail-push>
+			<!-- <ion-item (click)="showBolletta(bolletta, bolletta.key)" detail-push> -->
+			<ion-item (click)="showBolletta(bolletta)" detail-push>
 				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
@@ -31,10 +32,10 @@
 				<p ion-text>{{ parseISOString(bolletta.scadenza) }}</p>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">
+				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.key)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
-				<button ion-button icon-only color="primary" (click)="payBolletta(bolletta.id)">
+				<button ion-button icon-only color="primary" (click)="payBolletta(bolletta.key)">
 					<ion-icon name="checkmark-circle-outline"></ion-icon>
 				</button>
 			</ion-item-options>
@@ -47,7 +48,7 @@
 	<ion-list class="pagate" *ngIf="pagate.length != 0">
 		<ion-list-header>PAGATE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of pagate">
-			<ion-item (click)="showBolletta(bolletta, bolletta.id)">
+			<ion-item (click)="showBolletta(bolletta, bolletta.key)">
 				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>
@@ -56,7 +57,7 @@
 				<p>{{ parseISOString(bolletta.scadenza) }}</p>
 			</ion-item>
 			<ion-item-options>
-				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.id)">
+				<button ion-button icon-only color="danger" (click)="deleteBolletta(bolletta.key)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
 			</ion-item-options>

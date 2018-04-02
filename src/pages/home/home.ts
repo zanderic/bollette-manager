@@ -4,6 +4,7 @@ import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
 import { NuovaBollettaPage } from '../nuova-bolletta/nuova-bolletta';
 import { BollettaPage } from '../bolletta/bolletta';
+import { Observable } from 'rxjs';
 import moment from 'moment';
 
 @Component({
@@ -12,9 +13,9 @@ import moment from 'moment';
 })
 export class HomePage {
 	bollettaPage: any;
-	bollette: Bolletta[] = [];
 	pagate: Bolletta[] = [];
 	daPagare: Bolletta[] = [];
+	bolletteFire: Observable<any[]>;
 	totale: number = 0;
 	today: string;
 	// scadenzaText: string = "#666";
@@ -24,48 +25,56 @@ export class HomePage {
 		this.bollettaPage = BollettaPage;
 		this.today = new Date().toISOString();
 		this.today = this.today.substring(0, this.today.indexOf("T")); // YYYY-MM-DD
+		this.divideBollette();
 	}
 
-	ionViewWillEnter() {
-		this.callStorage();
-	}
+	ionViewWillEnter() {}
 
-	showBolletta(bolletta, index) {
-		this.navCtrl.push(BollettaPage, { id: index, obj: bolletta });
+	showBolletta(bolletta: Bolletta) {
+		this.navCtrl.push(BollettaPage, { obj: bolletta });
 	}
 
 	nuovaBollettaModal() {
 		let modal = this.modalCtrl.create(NuovaBollettaPage);
-		modal.onDidDismiss(data => {
-			this.callStorage();
-		});
+		// modal.onDidDismiss(data => {
+		// 	this.divideBollette();
+		// });
 		modal.present();
 	}
 
 	divideBollette() {
-		this.pagate = [];
-		this.daPagare = [];
-		for (let i = this.bollette.length - 1; i >= 0; i--) {
-			this.bollette[i].id = i;
-			if (this.bollette[i].pagata && this.pagate.length < 5) {
-				this.pagate.push(this.bollette[i]);
+		this.bolletteSrvc.get().subscribe(bollette => {
+			this.pagate = [];
+			this.daPagare = [];
+			console.log(bollette);
+			for (let i = bollette.length - 1; i >= 0; i--) {
+				if (bollette[i].pagata && this.pagate.length < 5) {
+					this.pagate.push(bollette[i]);
+				}
+				if (!bollette[i].pagata) {
+					this.daPagare.push(bollette[i]);
+				}
 			}
-			if (!this.bollette[i].pagata) {
-				this.daPagare.push(this.bollette[i]);
-			}
-		}
-		// this.bollette.forEach((item, index) => {
-		// 	item.id = index; // Update index of bollette
-		// 	if (item.pagata && this.pagate.length < 5) {
-		// 		this.pagate.push(item);
-		// 	}
-		// 	if (!item.pagata) {
-		// 		this.daPagare.push(item);
-		// 	}
-		// });
-		this.calcolaTotale();
-		console.log(this.daPagare);
-		console.log(this.pagate);
+			this.calcolaTotale();
+			console.log(this.daPagare);
+			console.log(this.pagate);
+		});
+	}
+	
+	calcolaTotale() {
+		this.totale = 0;
+		this.daPagare.forEach(item => {
+			this.totale = Number(this.totale) + Number(item.importo);
+		});
+		this.totale = Number(this.totale.toFixed(2));
+	}
+
+	payBolletta(index: string) {
+		this.bolletteSrvc.pay(index);
+	}
+
+	deleteBolletta(index: string) {
+		this.bolletteSrvc.delete(index);
 	}
 
 	oneWeekAlert(scadenza) {
@@ -79,58 +88,13 @@ export class HomePage {
 		}
 	}
 
-	calcolaTotale() {
-		this.totale = 0;
-		this.daPagare.forEach(item => {
-			this.totale = Number(this.totale) + Number(item.importo);
-		});
-		this.totale = Number(this.totale.toFixed(2));
-	}
-
-	uploadBollette() {
-		this.bolletteSrvc.uploadBollette();
-		this.toast("Bollette caricate sul server")
-	}
-
-	payBolletta(index) {
-		this.bolletteSrvc.payBolletta(index)
-			.then((promise) => {
-				this.callStorage();
-			});
-	}
-
-	deleteBolletta(index) {
-		this.bolletteSrvc.deleteBolletta(index)
-			.then((promise) => {
-				this.callStorage();
-			});
-	}
-
-	aggiorna(refresher) {
-		this.bolletteSrvc.getBollette().then((bollette) => {
-			this.bollette = bollette;
-			this.divideBollette();
-			setTimeout(() => {
-				refresher.complete();
-				this.toast("Bollette aggiornate");
-			}, 500);
-		});
-	}
-
-	toast(msg) {
+	toast(msg: string) {
 		let toast = this.toastCtrl.create({
 			message: msg,
 			duration: 500,
 			position: "bottom"
 		});
 		toast.present();
-	}
-
-	callStorage() {
-		this.bolletteSrvc.getBollette().then((bollette) => {
-			this.bollette = bollette;
-			this.divideBollette();
-		});
 	}
 
 	parseISOString(date: string) {
@@ -177,6 +141,18 @@ export class HomePage {
 				break;
 		}
 		return day + " " + month + " " + year;
+	}
+
+	// Empty function
+	aggiorna(refresher: object) {
+		// this.bolletteSrvc.getBollette().then((bollette) => {
+		// 	this.bollette = bollette;
+		// 	this.divideBollette();
+		// 	setTimeout(() => {
+		// 		refresher.complete();
+		// 		this.toast("Bollette aggiornate");
+		// 	}, 500);
+		// });
 	}
 }
 

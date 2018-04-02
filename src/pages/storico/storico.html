@@ -15,7 +15,7 @@
 <ion-content padding>
 	<ion-list class="bollette" *ngIf="bolletteToShow.length != 0">
 		<ion-list-header>ORDINE PER {{ displayLabel }}</ion-list-header>
-		<ion-item *ngFor="let bolletta of bolletteToShow" (click)="showBolletta(bolletta, bolletta.id)">
+		<ion-item *ngFor="let bolletta of bolletteToShow" (click)="showBolletta(bolletta)">
 			<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start></ion-icon>
 			<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start></ion-icon>
 			<ion-grid no-padding>

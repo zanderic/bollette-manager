@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { FCM } from '@ionic-native/fcm';
-
 
 import { HomePage } from '../pages/home/home';
 import { BolletteService } from '../services/bollette.services';
@@ -21,8 +19,7 @@ export class MyApp {
 	pages: Array<{title: string, component: any, icon: string}>;
 
 	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-		private bolletteSrvc: BolletteService, private fcm: FCM) {
-			this.bolletteSrvc.downloadBollette();
+		private bolletteSrvc: BolletteService) {
 			this.initializeApp();
 
 			// used for an example of ngFor and navigation
@@ -41,29 +38,27 @@ export class MyApp {
 			this.splashScreen.hide();
 
 			if (this.platform.is('cordova')) {
-				this.fcm.getToken().then(token => {
-					// Your best bet is to here store the token on the user's profile on the
-					// Firebase database, so that when you want to send notifications to this 
-					// specific user you can do it from Cloud Functions.
-					console.log(token);
-				});
-	
-				this.fcm.onNotification().subscribe(data => {
-					if (data.wasTapped) {
-						// Notificati on was received on device tray and tapped by the user.
-						console.log(JSON.stringify(data));
-						// this.navCtrl.setRoot(BollettaPage, { id: index, obj: bolletta });
-					} else {
-						// Notification was received in foreground. Maybe the user needs to be notified.
-						console.log(JSON.stringify(data));
-						// this.navCtrl.push(BollettaPage, { id: index, obj: bolletta });
-					}
-				});   
-			}
+				// Notifications
 
-			this.platform.pause.subscribe(() => {
-				this.bolletteSrvc.uploadBollette();
-			});
+				// this.fcm.getToken().then(token => {
+				// 	// Your best bet is to here store the token on the user's profile on the
+				// 	// Firebase database, so that when you want to send notifications to this 
+				// 	// specific user you can do it from Cloud Functions.
+				// 	console.log(token);
+				// });
+	
+				// this.fcm.onNotification().subscribe(data => {
+				// 	if (data.wasTapped) {
+				// 		// Notificati on was received on device tray and tapped by the user.
+				// 		console.log(JSON.stringify(data));
+				// 		// this.navCtrl.setRoot(BollettaPage, { id: index, obj: bolletta });
+				// 	} else {
+				// 		// Notification was received in foreground. Maybe the user needs to be notified.
+				// 		console.log(JSON.stringify(data));
+				// 		// this.navCtrl.push(BollettaPage, { id: index, obj: bolletta });
+				// 	}
+				// });   
+			}
 		});
 	}
 

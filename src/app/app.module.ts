@@ -1,11 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-import { IonicStorageModule } from '@ionic/storage';
-import { FCM } from '@ionic-native/fcm';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Screenshot } from '@ionic-native/screenshot';
+// Import the AF2 Module
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+// AF2 Settings
+export const firebaseConfig = {
+	apiKey: "AIzaSyB7t2fa076D3tCDy3FspHkVzoBZ2PMIJso",
+	authDomain: "bollettemanager.firebaseapp.com",
+	databaseURL: "https://bollettemanager.firebaseio.com",
+	projectId: "bollettemanager",
+	storageBucket: "bollettemanager.appspot.com",
+	messagingSenderId: "722770881831"
+};
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -33,9 +42,9 @@ import { BolletteService } from '../services/bollette.services';
 	],
 	imports: [
 		BrowserModule,
-		HttpModule,
 		IonicModule.forRoot(MyApp),
-		IonicStorageModule.forRoot()
+		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFireDatabaseModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -51,7 +60,6 @@ import { BolletteService } from '../services/bollette.services';
 		StatusBar,
 		SplashScreen,
 		BolletteService,
-		FCM,
 		SocialSharing,
 		Screenshot,
 		{provide: ErrorHandler, useClass: IonicErrorHandler}

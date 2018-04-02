@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'page-statistiche',
@@ -30,20 +31,24 @@ export class StatistichePage {
 	lineChartRifiuti: any;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private bolletteSrvc: BolletteService) {
-		console.log("costruttore");
-		this.bolletteSrvc.getBollette().then((bollette => {
+		console.log("Costruttore Statistiche");
+		this.bolletteSrvc.get().subscribe((bollette => {
 			this.bollette = bollette;
-
-			this.quantitaBollette = this.countQuantita();
-			this.createBarChart();
-			this.sommaImportiBollette = this.countImporto();
-			this.createPieChart();
-			this.createLineChart("Luce");
-			this.createLineChart("Acqua");
-			this.createLineChart("Gas");
-			this.createLineChart("Internet");
-			this.createLineChart("Rifiuti");
+			this.setup();
 		}))
+	}
+
+	// Function that calls all other functions
+	setup() {
+		this.quantitaBollette = this.countQuantita();
+		this.createBarChart();
+		this.sommaImportiBollette = this.countImporto();
+		this.createPieChart();
+		this.createLineChart("Luce");
+		this.createLineChart("Acqua");
+		this.createLineChart("Gas");
+		this.createLineChart("Internet");
+		this.createLineChart("Rifiuti");
 	}
 
 	createBarChart() {

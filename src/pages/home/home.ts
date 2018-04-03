@@ -142,17 +142,5 @@ export class HomePage {
 		}
 		return day + " " + month + " " + year;
 	}
-
-	// Empty function
-	aggiorna(refresher: object) {
-		// this.bolletteSrvc.getBollette().then((bollette) => {
-		// 	this.bollette = bollette;
-		// 	this.divideBollette();
-		// 	setTimeout(() => {
-		// 		refresher.complete();
-		// 		this.toast("Bollette aggiornate");
-		// 	}, 500);
-		// });
-	}
 }
 

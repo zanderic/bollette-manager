@@ -72,7 +72,7 @@ export class StoricoPage {
 		switch (number) {
 			case "0": // Scadenza crescente
 				this.bolletteToShow.sort(function (a, b) {
-					return (a.scadenza < b.scadenza) ? -1 : ((a.scadenza > b.scadenza) ? 1 : 0);
+					return (a.scadenza > b.scadenza) ? -1 : ((a.scadenza < b.scadenza) ? 1 : 0);
 				});
 				break;
 			case "1": // Pagamento crescente

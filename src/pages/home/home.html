@@ -16,9 +16,6 @@
 </ion-header>
 
 <ion-content padding>
-	<ion-refresher (ionRefresh)="aggiorna($event)">
-		<ion-refresher-content pullingText="Trascina per aggiornare" refreshingText="Solo un secondo..."></ion-refresher-content>
-	</ion-refresher>
 	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
 		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
@@ -48,7 +45,7 @@
 	<ion-list class="pagate" *ngIf="pagate.length != 0">
 		<ion-list-header>PAGATE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of pagate">
-			<ion-item (click)="showBolletta(bolletta, bolletta.key)">
+			<ion-item (click)="showBolletta(bolletta)">
 				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>
 				<div *ngIf="!bolletta.pagata" class="importo">€ {{ bolletta.importo }}</div>

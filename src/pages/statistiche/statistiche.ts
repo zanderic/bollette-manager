@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Chart } from 'chart.js';
 import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
 	selector: 'page-statistiche',

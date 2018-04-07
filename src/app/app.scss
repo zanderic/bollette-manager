@@ -11,7 +11,7 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
 .menu-inner {
     font-family: ComingSoon;
 
-    .list {
+    .list.pages {
         margin-top: 2vh;
         
         .item {
@@ -25,6 +25,24 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
             .label {
                 font-weight: bold;
                 font-size: 5vw;
+                color: color($colors, light);
+            }
+        }
+	}
+	.list.exit {
+        margin-top: 38vh;
+        
+        .item {
+            background-color: rgba(76, 175, 80, 0.8);
+            margin: 0 0 1vh 35vw;
+            padding: 0 0 0 10vw;
+            border-radius: 20px;
+            border: 3px solid;
+            border-color: color($colors, primary);
+
+            .label {
+                font-weight: bold;
+                font-size: 2vw;
                 color: color($colors, light);
             }
         }

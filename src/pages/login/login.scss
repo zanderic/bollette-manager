@@ -1,0 +1,27 @@
+page-login {
+	img {
+		margin-top: 5vh;
+		border: 2px color($colors, primary);
+	}
+	h1 {
+		font-weight: bold;
+		padding-top: 5vh;
+	}
+	.form {
+		padding: 5vh 6vw 0 6vw;
+		
+		.list .item .item-inner, .list .item:last-child {
+			border: 0;
+		}
+
+		.button .button-inner {
+			line-height: 0;
+			font-weight: bold !important;
+		}
+
+		.btn-google {
+			margin-top: 2vh;
+			color: white;
+		}
+	}
+}

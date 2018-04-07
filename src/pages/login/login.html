@@ -1,0 +1,29 @@
+<ion-content padding class="login-bg">
+	<ion-grid>
+		<ion-row justify-content-center>
+			<img src="assets/logo/logo.png">
+		</ion-row>
+		<ion-row justify-content-center>
+			<h1>BOLLETTE MANAGER</h1>
+			<h5>Bollette, queste maledette</h5>
+		</ion-row>
+	</ion-grid>
+	<div class="form">
+		<form [formGroup]="user" (ngSubmit)="signin()">
+			<ion-list>
+				<ion-item>
+					<ion-label color="primary" floating>Email</ion-label>
+					<ion-input formControlName="email" type="text"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="primary" floating>Password</ion-label>
+					<ion-input formControlName="password" type="password"></ion-input>
+				</ion-item>
+			</ion-list>
+			<button ion-button block type="submit">Login</button>
+		</form>
+		<button ion-button block icon-left class="btn-google" color="secondary" (click)="loginGoogle()">
+			<ion-icon name="logo-google"></ion-icon>Google
+		</button>
+	</div>
+</ion-content>

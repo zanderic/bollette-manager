@@ -1,12 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Screenshot } from '@ionic-native/screenshot';
-// Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
-// AF2 Settings
+import { AngularFireAuthModule } from 'angularfire2/auth';
+// import { environment } from 'environments/environment';
 export const firebaseConfig = {
 	apiKey: "AIzaSyB7t2fa076D3tCDy3FspHkVzoBZ2PMIJso",
 	authDomain: "bollettemanager.firebaseapp.com",
@@ -23,12 +25,9 @@ import { NuovaBollettaPage } from '../pages/nuova-bolletta/nuova-bolletta';
 import { StoricoPage } from '../pages/storico/storico';
 import { PopoverPage } from '../pages/popover/popover';
 import { StatistichePage } from '../pages/statistiche/statistiche';
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { LoginPage } from '../pages/login/login';
 import { BolletteService } from '../services/bollette.services';
-
+import { AuthService } from '../services/auth.services';
 
 @NgModule({
 	declarations: [
@@ -38,13 +37,15 @@ import { BolletteService } from '../services/bollette.services';
 		NuovaBollettaPage,
 		StoricoPage,
 		PopoverPage,
-		StatistichePage
+		StatistichePage,
+		LoginPage
 	],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
 		AngularFireModule.initializeApp(firebaseConfig),
-		AngularFireDatabaseModule
+		AngularFireDatabaseModule,
+		AngularFireAuthModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -54,14 +55,16 @@ import { BolletteService } from '../services/bollette.services';
 		NuovaBollettaPage,
 		StoricoPage,
 		PopoverPage,
-		StatistichePage
+		StatistichePage,
+		LoginPage
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
-		BolletteService,
 		SocialSharing,
 		Screenshot,
+		BolletteService,
+		AuthService,
 		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })

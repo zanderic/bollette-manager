@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, ToastController } from 'ionic-angular';
+import { NavController, ModalController, ToastController, LoadingController, Loading } from 'ionic-angular';
 import { Bolletta } from '../../model/bolletta.model';
 import { BolletteService } from '../../services/bollette.services';
 import { NuovaBollettaPage } from '../nuova-bolletta/nuova-bolletta';
@@ -18,10 +18,11 @@ export class HomePage {
 	bolletteFire: Observable<any[]>;
 	totale: number = 0;
 	today: string;
-	// scadenzaText: string = "#666";
+	loading: Loading;
 
 	constructor(private navCtrl: NavController, private bolletteSrvc: BolletteService, private modalCtrl: ModalController,
-		private toastCtrl: ToastController) {
+		private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
+		this.presentLoading();
 		this.bollettaPage = BollettaPage;
 		this.today = new Date().toISOString();
 		this.today = this.today.substring(0, this.today.indexOf("T")); // YYYY-MM-DD
@@ -67,6 +68,7 @@ export class HomePage {
 			this.totale = Number(this.totale) + Number(item.importo);
 		});
 		this.totale = Number(this.totale.toFixed(2));
+		this.loading.dismiss();
 	}
 
 	payBolletta(index: string) {
@@ -141,6 +143,11 @@ export class HomePage {
 				break;
 		}
 		return day + " " + month + " " + year;
+	}
+
+	presentLoading() {
+		this.loading = this.loadingCtrl.create();
+		this.loading.present(); // Will dismiss in calcolaTotale()
 	}
 }
 

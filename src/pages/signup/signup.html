@@ -1,0 +1,22 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<ion-title>Bollette Manager</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content padding class="login-bg">
+	<div class="form">
+		<form [formGroup]="newUser" (ngSubmit)="signup()">
+			<ion-list>
+				<ion-item>
+					<ion-label floating>Email</ion-label>
+					<ion-input formControlName="email" type="email"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label floating>Password</ion-label>
+					<ion-input formControlName="password" type="password"></ion-input>
+				</ion-item>
+			</ion-list>
+			<button ion-button large block type="submit">SIGN UP</button>
+		</form>
+	</div>
+</ion-content>

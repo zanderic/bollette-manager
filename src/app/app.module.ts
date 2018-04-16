@@ -8,7 +8,6 @@ import { Screenshot } from '@ionic-native/screenshot';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-// import { environment } from 'environments/environment';
 export const firebaseConfig = {
 	apiKey: "AIzaSyB7t2fa076D3tCDy3FspHkVzoBZ2PMIJso",
 	authDomain: "bollettemanager.firebaseapp.com",
@@ -26,6 +25,7 @@ import { StoricoPage } from '../pages/storico/storico';
 import { PopoverPage } from '../pages/popover/popover';
 import { StatistichePage } from '../pages/statistiche/statistiche';
 import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
 import { BolletteService } from '../services/bollette.services';
 import { AuthService } from '../services/auth.services';
 
@@ -38,7 +38,8 @@ import { AuthService } from '../services/auth.services';
 		StoricoPage,
 		PopoverPage,
 		StatistichePage,
-		LoginPage
+		LoginPage,
+		SignupPage
 	],
 	imports: [
 		BrowserModule,
@@ -56,7 +57,8 @@ import { AuthService } from '../services/auth.services';
 		StoricoPage,
 		PopoverPage,
 		StatistichePage,
-		LoginPage
+		LoginPage,
+		SignupPage
 	],
 	providers: [
 		StatusBar,

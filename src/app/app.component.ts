@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, NavController } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -8,24 +8,21 @@ import { HomePage } from '../pages/home/home';
 import { StoricoPage } from '../pages/storico/storico';
 import { StatistichePage } from '../pages/statistiche/statistiche';
 import { AuthService } from '../services/auth.services';
+import { BolletteService } from '../services/bollette.services';
 
 @Component({
 	templateUrl: 'app.html'
 })
 export class MyApp {
 	@ViewChild(Nav) nav: Nav;
-	// @ViewChild('content') navCtrl: NavController; // Notifiche
 
-	rootPage: any = LoginPage;
-	pages: Array<{
-		title: string,
-		component: any,
-		icon: string
-	}>;
+	rootPage: any;
+	pages: Array<{ title: string, component: any, icon: string }>;
+	email: string;
 
-	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authSrvc: AuthService) {
+	constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, private authSrvc: AuthService,
+		private bolletteSrvc: BolletteService) {
 		this.initializeApp();
-		this.isUserAuth();
 		// used for an example of ngFor and navigation
 		this.pages = [
 			{ title: 'Home', component: HomePage, icon: "home" },
@@ -36,24 +33,31 @@ export class MyApp {
 
 	initializeApp() {
 		this.platform.ready().then(() => {
-			// Okay, so the platform is ready and our plugins are available.
-			// Here you can do any higher level native things you might need.
-			this.statusBar.backgroundColorByHexString("#388E3C");
+			this.statusBar.backgroundColorByHexString("#087e06");
 			this.splashScreen.hide();
-			this.isUserAuth();
-			if (this.platform.is('cordova')) {
-				// Notifications
-			}
 		});
+		this.authRedirect();
 	}
 
-	isUserAuth() {
-		console.log(this.authSrvc.getUserId());
-		if (this.authSrvc.getUserId()) {
-			this.rootPage = HomePage;
-		} else {
-			this.rootPage = LoginPage;
-		}
+	// Login and logout redirect
+	private authRedirect() {
+		this.authSrvc.firebaseAuth.authState
+			.subscribe(user => {
+				if (user) {
+					console.log(user.uid);
+					this.email = user.email;
+					this.bolletteSrvc.changeRefBollette(user.uid);
+					this.rootPage = HomePage;
+				} else {
+					console.log(null);
+					this.email = null;
+					this.rootPage = LoginPage;
+				}
+			}, (error) => {
+				this.email = null;
+				this.rootPage = LoginPage;
+			}
+		);
 	}
 
 	// Menu pages
@@ -63,12 +67,10 @@ export class MyApp {
 	}
 
 	logout() {
-		this.authSrvc.logout().then(() => {
-			console.log("Signout succesfull");
-			this.nav.setRoot(LoginPage);
-		}).catch(function (error) {
-			console.log(error.code);
-			console.log(error.message);
+		this.authSrvc.signOut().then(() => {
+			console.log("Signout successfull"); // this.nav.setRoot(LoginPage);
+		}).catch(function(error) {
+			console.log(error.code, error.message);
 		})
 	}
 }

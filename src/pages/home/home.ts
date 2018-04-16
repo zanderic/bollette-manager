@@ -22,7 +22,7 @@ export class HomePage {
 
 	constructor(private navCtrl: NavController, private bolletteSrvc: BolletteService, private modalCtrl: ModalController,
 		private toastCtrl: ToastController, private loadingCtrl: LoadingController) {
-		this.presentLoading();
+		this.presentLoading(); // Will dismiss in calcolaTotale()
 		this.bollettaPage = BollettaPage;
 		this.today = new Date().toISOString();
 		this.today = this.today.substring(0, this.today.indexOf("T")); // YYYY-MM-DD

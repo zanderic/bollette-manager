@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "722770881831-36p3k0hd9ot5gk4va3aeac2ucursl7ki.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bollette.manager",
+            "certificate_hash": "2e26f29882a78caf616242f6399e4b9994d5dac1"
+          }
+        },
+        {
           "client_id": "722770881831-p3c877qrd5oqvshul72o4v7sigv0u1e6.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722770881831-p3c877qrd5oqvshul72o4v7sigv0u1e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

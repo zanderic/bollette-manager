@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ToastController, MenuController } from 'ionic-angular';
+import { NavController, ToastController, MenuController, LoadingController, Loading } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.services';
-import { HomePage } from '../home/home';
+import { SignupPage } from '../signup/signup';
 
 @Component({
 	selector: 'page-login',
@@ -10,13 +10,13 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 	user: FormGroup;
+	loading: Loading;
 
 	constructor(private navCtrl: NavController, private authSrvc: AuthService, private formBuilder: FormBuilder,
-		private toastCtrl: ToastController, private menuCtrl: MenuController) {
-		// Form validation
+		private toastCtrl: ToastController, private menuCtrl: MenuController, private loadingCtrl: LoadingController) {
 		this.user = this.formBuilder.group({
-			email: ['', Validators.required],
-			password: ['', Validators.required]
+			email: ['', Validators.compose([Validators.required, Validators.email])],
+			password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
 		})
 	}
 
@@ -28,36 +28,47 @@ export class LoginPage {
 		this.menuCtrl.swipeEnable(true);
 	}
 
-	signin(email, pass) {
-		console.log(this.user.value.email);
-		console.log(this.user.value.password);
-		this.authSrvc.signinWithCredentials(this.user.value.email, this.user.value.password).then(() => {
-			this.navCtrl.setRoot(HomePage);
-		}).catch(error => {
-			console.log(error.code);
-			console.log(error.message);
-			this.presentToast(error.message);
-		})
+	login(email, pass) {
+		this.presentLoading();
+		this.authSrvc.signInWithEmail(this.user.value.email, this.user.value.password)
+			.then(() => {
+				this.loading.dismiss();
+				console.log("Login successfull"); // this.navCtrl.setRoot(HomePage);
+			}).catch(error => {
+				this.loading.dismiss();
+				console.log(error.code, error.message);
+				this.presentToast(error.message);
+			});
 	}
 
-	loginGoogle() {
-		this.authSrvc.loginWithGoogle().then(() => {
-			this.navCtrl.setRoot(HomePage);
-		}).catch(error => {
-			console.log(error.code);
-			console.log(error.message);
-			console.log(error.email); // The email of the user's account used.
-			console.log(error.credential); // The firebase.auth.AuthCredential type that was used.
-			this.presentToast(error.message);
-		});
+	logInWithGoogle() {
+		this.presentLoading();
+		this.authSrvc.signInWithGoogle()	
+			.then(() => {
+				this.loading.dismiss();
+				console.log("Login Google successfull"); // this.navCtrl.setRoot(HomePage);
+			}).catch(error => {
+				this.loading.dismiss();
+				console.log(error.code, error.message);
+				this.presentToast(error.message);
+			});
+	}
+
+	signup() {
+		this.navCtrl.push(SignupPage);
 	}
 
 	presentToast(text: string) {
 		let toast = this.toastCtrl.create({
 			message: text,
-			duration: 4000,
+			duration: 3000,
 			position: 'bottom'
 		});
 		toast.present();
+	}
+
+	presentLoading() {
+		this.loading = this.loadingCtrl.create();
+		this.loading.present(); // Will dismiss in ...
 	}
 }

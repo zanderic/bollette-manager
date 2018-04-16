@@ -3,18 +3,21 @@ import { Bolletta } from '../model/bolletta.model';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
-import { AuthService } from './auth.services';
 
 @Injectable() // Mandatory for a Service that uses another Service
 export class BolletteService {
 	private bollette: Observable<Bolletta[]>
 	private bolletteRef: AngularFireList<Bolletta>;
-	private userId: string;
+	private userUID: string;
 
-	constructor(private firebaseDatabase: AngularFireDatabase, private authSrvc: AuthService) {
+	constructor(private firebaseDatabase: AngularFireDatabase) {
 		console.log("Constructor bolletteService");
-		this.userId = this.authSrvc.getUserId();
-		this.bolletteRef = this.firebaseDatabase.list<Bolletta>(`bollette/${this.userId}`, ref => ref.orderByChild("scadenza"));
+	}
+	
+	changeRefBollette(userUID: string) {
+		this.userUID = userUID;
+		console.log(this.userUID);
+		this.bolletteRef = this.firebaseDatabase.list<Bolletta>(`bollette/${this.userUID}`, ref => ref.orderByChild("scadenza"));
 		// Use snapshotChanges().map() to store the key
 		this.bollette = this.bolletteRef.snapshotChanges()
 			.map(
@@ -26,7 +29,7 @@ export class BolletteService {
 			);
 	}
 
-	get() {
+	get(): Observable<Bolletta[]> {
 		return this.bollette;
 	}
 
@@ -40,7 +43,7 @@ export class BolletteService {
 
 	getById(bollettaID: string) {
 		console.log(bollettaID);
-		return this.firebaseDatabase.object(`/bollette/${this.userId}/` + bollettaID);
+		return this.firebaseDatabase.object(`/bollette/${this.userUID}/` + bollettaID);
 	}
 	pay(key: string) {
 		let date = new Date().toISOString(); // From ISO to

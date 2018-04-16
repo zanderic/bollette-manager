@@ -4,11 +4,6 @@
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>{{ parseISOString(today) }}</ion-title>
-		<ion-buttons end>
-			<!-- <button ion-button icon-only (click)="showFilter()">
-				<ion-icon name="funnel"></ion-icon>
-			</button> -->
-		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -16,7 +11,6 @@
 	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
 		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
-			<!-- <ion-item (click)="showBolletta(bolletta, bolletta.key)" detail-push> -->
 			<ion-item (click)="showBolletta(bolletta)" detail-push>
 				<ion-icon *ngIf="!bolletta.pagata" name="{{ bolletta.icona }}" item-start large></ion-icon>
 				<ion-icon *ngIf="bolletta.pagata" name="{{ bolletta.icona }}" color="primary" item-start large></ion-icon>

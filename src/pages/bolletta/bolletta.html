@@ -27,13 +27,13 @@
 				<ion-icon name="alert" item-start></ion-icon>
 				<h2>{{ parseISOString(bolletta.scadenza) }}</h2>
 			</ion-item>
-			<ion-item class="dataPagamento" *ngIf="bolletta.pagata" color="lightPrimary">
+			<ion-item class="dataPagamento" *ngIf="bolletta.pagata" color="primaryLight">
 				<ion-icon name="checkmark" item-start></ion-icon>
 				<h2 class="pay-date">{{ parseISOString(bolletta.dataPagamento) }}</h2>
 			</ion-item>
 			<ion-item *ngIf="bolletta.pagata" color="primary">
-				<ion-icon name="checkmark-circle-outline" color="light" item-start></ion-icon>
-				<h1 class="pay-text" color="light">PAGATA</h1>
+				<ion-icon name="checkmark-circle-outline" item-start></ion-icon>
+				<h1 class="pay-text">PAGATA</h1>
 			</ion-item>
 		</ion-list>
 		<button ion-button icon-left *ngIf="!bolletta.pagata" block clear large (click)="showConfirm('pay')" color="primary">Pagamento</button>

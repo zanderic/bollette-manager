@@ -3,8 +3,10 @@
 		<ion-toolbar color="primary">
 			<ion-title>Bollette Manager</ion-title>
 		</ion-toolbar>
+		<ion-toolbar color="primaryLight">
+			<ion-title class="subtitle">{{ email }}</ion-title>
+		</ion-toolbar>
 	</ion-header>
-
 	<ion-content>
 		<ion-list no-lines class="pages">
 			<ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
@@ -14,7 +16,7 @@
 		</ion-list>
 		<ion-list no-lines class="exit">
 			<ion-item menuClose (click)="logout()">
-				<ion-icon name="exit" item-start color="light" large></ion-icon>
+				<ion-icon name="exit" item-start color="light"></ion-icon>
 				Logout
 			</ion-item>
 		</ion-list>

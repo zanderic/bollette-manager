@@ -10,18 +10,21 @@ page-login {
 	.form {
 		padding: 5vh 6vw 0 6vw;
 		
-		.list .item .item-inner, .list .item:last-child {
-			border: 0;
-		}
+		// .list .item .item-inner, .list .item:last-child {
+		// 	border: 0;
+		// }
 
 		.button .button-inner {
-			line-height: 0;
-			font-weight: bold !important;
+			font-weight: bold;
 		}
 
 		.btn-google {
 			margin-top: 2vh;
 			color: white;
+		}
+
+		.btn-signup {
+			margin-top: 2vh;
 		}
 	}
 }

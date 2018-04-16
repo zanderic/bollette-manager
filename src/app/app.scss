@@ -7,20 +7,23 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
     font-size: 5vw;
     font-weight: bold;
 }
+.subtitle .toolbar-title {
+	font-size: 4vw;
+}
 
 .menu-inner {
     font-family: ComingSoon;
 
     .list.pages {
-        margin-top: 2vh;
+        margin-top: 4vh;
         
         .item {
-            background-color: rgba(76, 175, 80, 0.8);
+			background-color: color($colors, primary);
             margin: 0 0 1vh 4vw;
             padding: 1vh 0 1vh 10vw;
             border-radius: 20px;
-            border: 3px solid;
-            border-color: rgba(76, 175, 80, 1);
+            // border: 3px solid;
+			// border-color: color($colors, dark);
 
             .label {
                 font-weight: bold;
@@ -30,19 +33,19 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
         }
 	}
 	.list.exit {
-        margin-top: 38vh;
+        margin-top: 32vh;
         
         .item {
-            background-color: rgba(76, 175, 80, 0.8);
+			background-color: color($colors, primary);
             margin: 0 0 1vh 35vw;
-            padding: 0 0 0 10vw;
+            padding: 0 0 0 8vw;
             border-radius: 20px;
-            border: 3px solid;
-            border-color: color($colors, primary);
+            // border: 3px solid;
+            // border-color: color($colors, primary);
 
             .label {
                 font-weight: bold;
-                font-size: 2vw;
+                font-size: 80%;
                 color: color($colors, light);
             }
         }

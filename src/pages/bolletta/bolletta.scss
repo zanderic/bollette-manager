@@ -1,7 +1,10 @@
 page-bolletta {
     .card {
-        border: 2px solid color($colors, primary);
-
+		// border: 2px solid color($colors, primary);
+		box-shadow: 0 2px 20px 5px rgba(0, 0, 0, 0.14),
+					0 3px 20px 0px rgba(0, 0, 0, 0.2),
+					0 0px 0px 0 rgba(0, 0, 0, 0.12);
+					
         .card-header {
             text-align: center;
             border-bottom: 2px solid color($colors, primary);
@@ -22,11 +25,12 @@ page-bolletta {
             .pay-date {
 				text-align: right;
 				font-weight: bold;
+				color: color($colors, light);
             }
         }
 
         .pay-text {
-            color: white;
+            color: color($colors, light);
             font-weight: bold;
             text-align: right;
 		}

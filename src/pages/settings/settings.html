@@ -1,0 +1,25 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Impostazioni</ion-title>
+	</ion-navbar>
+</ion-header>
+<ion-content padding>
+	<ion-list radio-group [(ngModel)]="selectedTheme" (ionChange)="chooseAppTheme()">
+		<ion-list-header>TEMA</ion-list-header>
+		<ion-item>
+			<ion-label>Default</ion-label>
+			<ion-radio value="default-theme" color="primary"></ion-radio>
+		</ion-item>
+		<ion-item>
+			<ion-label>Acqua</ion-label>
+			<ion-radio value="light-theme" color="bgAqua"></ion-radio>
+		</ion-item>
+		<ion-item>
+			<ion-label>Blue</ion-label>
+			<ion-radio value="dark-theme" color="bgBlue"></ion-radio>
+		</ion-item>
+	</ion-list>
+</ion-content>

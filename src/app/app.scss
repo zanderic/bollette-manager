@@ -33,7 +33,7 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
         }
 	}
 	.list.exit {
-        margin-top: 32vh;
+        margin-top: 25vh;
         
         .item {
 			background-color: color($colors, primary);
@@ -58,13 +58,18 @@ body, span, button, h2, ion-item, ion-title, ion-label, ion-refresher, div.alert
     .scroll-content {
         border-top: 0 !important;
         // margin-top: 66px !important;
+	}
+	
+	.list-header {
+		border-top: 0;
+		margin-bottom: 0;
     }
 
     .item h1, .item h2 {
         margin-top: 0 !important;
     }
     
-    .bar-button {
+    .bar-button.right {
         margin-right: 15px;
     }
 }

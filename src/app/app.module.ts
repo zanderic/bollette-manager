@@ -5,7 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Screenshot } from '@ionic-native/screenshot';
+import { Firebase } from '@ionic-native/firebase';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 export const firebaseConfig = {
@@ -16,6 +18,7 @@ export const firebaseConfig = {
 	storageBucket: "bollettemanager.appspot.com",
 	messagingSenderId: "722770881831"
 };
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -28,6 +31,9 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { BolletteService } from '../services/bollette.services';
 import { AuthService } from '../services/auth.services';
+import { NotificationService } from '../services/notification.services';
+import { SettingsService } from '../services/settings.services';
+import { SettingsPage } from '../pages/settings/settings';
 
 @NgModule({
 	declarations: [
@@ -39,14 +45,17 @@ import { AuthService } from '../services/auth.services';
 		PopoverPage,
 		StatistichePage,
 		LoginPage,
-		SignupPage
+		SignupPage,
+		SettingsPage
 	],
 	imports: [
 		BrowserModule,
 		IonicModule.forRoot(MyApp),
 		AngularFireModule.initializeApp(firebaseConfig),
+		AngularFirestoreModule,
 		AngularFireDatabaseModule,
-		AngularFireAuthModule
+		AngularFireAuthModule,
+		IonicStorageModule.forRoot()
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -58,15 +67,19 @@ import { AuthService } from '../services/auth.services';
 		PopoverPage,
 		StatistichePage,
 		LoginPage,
-		SignupPage
+		SignupPage,
+		SettingsPage
 	],
 	providers: [
 		StatusBar,
 		SplashScreen,
 		SocialSharing,
 		Screenshot,
+		Firebase,
 		BolletteService,
 		AuthService,
+		NotificationService,
+		SettingsService,
 		{provide: ErrorHandler, useClass: IonicErrorHandler}
 	]
 })

@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-	<ion-list class="daPagare" *ngIf="daPagare.length != 0">
+	<ion-list class="daPagare" *ngIf="daPagare.length > 0">
 		<ion-list-header>DA PAGARE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of daPagare">
 			<ion-item (click)="showBolletta(bolletta)" detail-push>
@@ -28,12 +28,12 @@
 				</button>
 			</ion-item-options>
 		</ion-item-sliding>
-		<ion-item>
+		<ion-item *ngIf="daPagare.length > 1">
 			<div class="totale">€ {{ totale.toFixed(2) }}</div>
 			<h1 class="totale-text" color="light">TOTALE</h1>
 		</ion-item>
 	</ion-list>
-	<ion-list class="pagate" *ngIf="pagate.length != 0">
+	<ion-list class="pagate" *ngIf="pagate.length > 0">
 		<ion-list-header>PAGATE</ion-list-header>
 		<ion-item-sliding *ngFor="let bolletta of pagate">
 			<ion-item (click)="showBolletta(bolletta)">

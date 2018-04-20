@@ -1,7 +1,9 @@
 page-login {
+	ion-content {
+		background-color: color($colors, light) !important;
+	}
 	img {
 		margin-top: 5vh;
-		border: 2px color($colors, primary);
 	}
 	h1 {
 		font-weight: bold;
@@ -10,10 +12,6 @@ page-login {
 	.form {
 		padding: 5vh 6vw 0 6vw;
 		
-		// .list .item .item-inner, .list .item:last-child {
-		// 	border: 0;
-		// }
-
 		.button .button-inner {
 			font-weight: bold;
 		}

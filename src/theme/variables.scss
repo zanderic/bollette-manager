@@ -35,11 +35,15 @@ $app-direction: ltr;
 
 $colors: (
 	primary:    #4dae3d,
+	// primary: #087e06,
+	// primary:	#80cbc4,
 	primaryLight: #81e16c,
 	primaryDark: #087e06,
 	secondary:  #FFC107,
 	secondaryLight: #fff350,
 	secondaryDark: #c79100,
+	bgBlue: #2e5f9c,
+	bgAqua: #80cbc4,
 	danger:     #f53d3d,
 	light:      #ffffff,
 	dark:       #000000,
@@ -81,6 +85,8 @@ $colors: (
 // default are overridden.
 
 @import "ionic.theme.default";
+@import "theme.light";
+@import "theme.dark";
 
 
 // Ionicons

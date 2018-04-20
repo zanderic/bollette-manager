@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Bolletta } from '../model/bolletta.model';
 import 'rxjs/add/operator/map';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'; // Firebase Realtime Database 
 import { Observable } from 'rxjs/Observable';
+// import { AngularFirestore } from "angularfire2/firestore";
 
 @Injectable() // Mandatory for a Service that uses another Service
 export class BolletteService {

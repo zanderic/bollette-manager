@@ -1,0 +1,39 @@
+.dark-theme {
+	ion-content {
+		background-color: color($colors, bgBlue);
+	}
+
+	// .item {
+	// 	background-color: color($colors, bgBlue);
+	// 	color: color($colors, light);
+
+	// 	.icon {
+	// 		color: color($colors, light);
+	// 	}
+	// }
+ 
+	// .toolbar-title {
+	// 	color: #fff;
+	// }
+	$colors: (
+		primary:    #2e5f9c,
+		// primary: #087e06,
+		// primary:	#80cbc4,
+		primaryLight: #81e16c,
+		primaryDark: #087e06,
+		secondary:  #FFC107,
+		secondaryLight: #fff350,
+		secondaryDark: #c79100,
+		bgBlue: #2e5f9c,
+		bgAqua: #80cbc4,
+		danger:     #f53d3d,
+		light:      #ffffff,
+		dark:       #000000,
+		extra:		#03a9f4,
+		luce:		rgba(255, 193, 7, 0.5),
+		acqua:		rgba(3, 155, 229, 0.5),
+		gas:		rgba(244, 67, 54, 0.5),
+		internet:	rgba(67, 160, 71, 0.5),
+		rifiuti:	rgba(117, 117, 117, 0.5)	
+	);
+}  
